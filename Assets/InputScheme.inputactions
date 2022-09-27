@@ -1,0 +1,40 @@
+{
+    "name": "InputScheme",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "3c98b7e8-d595-4a6c-8eb2-a0cf07da1606",
+            "actions": [
+                {
+                    "name": "Space",
+                    "type": "Button",
+                    "id": "7133263b-66b3-4890-a853-fe369e299f44",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "162c71ac-cdd4-40d0-b397-e67d281ec571",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Space",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "PC",
+            "bindingGroup": "PC",
+            "devices": []
+        }
+    ]
+}
