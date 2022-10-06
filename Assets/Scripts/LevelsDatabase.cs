@@ -22,10 +22,12 @@ public class LevelsDatabase : MonoBehaviour
    {
       // TODO: handle scenes (maybe level names) to load them based on database 
       public string name;
+      public int levelsAmount;
       public Texture background;
       public Texture subjectIcon;
-      public Texture LockedTexture;
-      public int levelsAmount;
+      public Vector2 unlockedTextureSize;
+      public Texture lockedTexture;
+      public Vector2 lockedTextureSize;
    }
    
    private void Awake()

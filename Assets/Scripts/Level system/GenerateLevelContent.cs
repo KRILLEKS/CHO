@@ -42,43 +42,75 @@ public class GenerateLevelContent : MonoBehaviour
 
       for (int i = 1; i < amount; i++)
       {
+         GameObject transaction;
+         
          if (instantiateThinElement)
          {
-            Instantiate(_transactionTop2Bot.gameObject, _content);
-            InstantiateElement(_thinElement, i + 1, Data.MaxLevels[currentSubject] < i + 2);
+            transaction = Instantiate(_transactionTop2Bot.gameObject, _content);
+            InstantiateElement(_thinElement, i + 1, Data.MaxLevels[currentSubject] < i + 1);
          }
          else
          {
-            Instantiate(_transactionBot2Top.gameObject, _content);
-            InstantiateElement(_thickElement, i + 1, Data.MaxLevels[currentSubject] < i + 2);
+            transaction = Instantiate(_transactionBot2Top.gameObject, _content);
+            InstantiateElement(_thickElement, i + 1, Data.MaxLevels[currentSubject] < i + 1);
          }
-
+         
+         SetTransaction(transaction, Data.MaxLevels[currentSubject] < i + 1);
+         
          instantiateThinElement = instantiateThinElement == false;
       }
 
       void InstantiateElement(Transform elementTransform, int level, bool isLocked)
       {
          var instance = Instantiate(elementTransform.gameObject, _content);
+         // we get this Transforms cause we work (at least can work) with them multiple times
+         var levelImage = instance.transform.Find($"Level image");
+         var levelIsLocked = instance.transform.Find($"LevelIsLocked");
+         var percentage = instance.transform.Find($"Percentage");
+         
          instance.transform.Find($"Filler").GetComponent<Image>().fillAmount = 0;
          instance.transform.Find($"Level number").GetComponent<TextMeshProUGUI>().text = level.ToString();
-         instance.transform.Find($"Level image").GetComponent<RawImage>().texture = LevelsDatabase.Subjects[currentSubject].subjectIcon;
-         instance.transform.Find($"LevelIsLocked").GetComponent<RawImage>().texture = LevelsDatabase.Subjects[currentSubject].LockedTexture;
+         levelImage.GetComponent<RawImage>().texture = LevelsDatabase.Subjects[currentSubject].subjectIcon;
+         levelIsLocked.GetComponent<RawImage>().texture = LevelsDatabase.Subjects[currentSubject].lockedTexture;
 
-
+         levelImage.GetComponent<RectTransform>().sizeDelta = LevelsDatabase.Subjects[currentSubject].unlockedTextureSize;
+         levelIsLocked.GetComponent<RectTransform>().sizeDelta = LevelsDatabase.Subjects[currentSubject].lockedTextureSize;
+         
+         // unlocked
          if (isLocked == false)
          {
+            levelIsLocked.gameObject.SetActive(false);
+
             if (Data.Percentages[currentSubject].Count >= level && Data.Percentages[currentSubject][level - 1] != -1)
                _levelHandler.StartCoroutine(_levelHandler.ChangePercentageOverTime(instance.transform, Data.Percentages[currentSubject][level - 1]));
             else
-               instance.transform.Find($"Percentage").gameObject.SetActive(false);
+               percentage.gameObject.SetActive(false);
          }
+         // locked
          else
          {
-            instance.transform.Find($"LevelIsLocked").gameObject.SetActive(true);
-            instance.transform.Find($"Percentage").gameObject.SetActive(false);
+            levelIsLocked.gameObject.SetActive(true);
+            levelImage.gameObject.SetActive(false);
+            percentage.gameObject.SetActive(false);
          }
 
-         instance.transform.Find($"Level image").GetComponent<Button>().onClick.AddListener(() => _levelHandler.StartLevel(level));
+         levelImage.GetComponent<Button>().onClick.AddListener(() => _levelHandler.StartLevel(level));
+      }
+
+      void SetTransaction(GameObject transactionGO, bool isLocked)
+      {
+         // locked
+         if (isLocked)
+         {
+            transactionGO.transform.Find("Locked").gameObject.SetActive(true);
+            transactionGO.transform.Find("Unlocked").gameObject.SetActive(false);
+         }
+         // unlocked
+         else
+         {
+            transactionGO.transform.Find("Locked").gameObject.SetActive(false);
+            transactionGO.transform.Find("Unlocked").gameObject.SetActive(true);
+         }
       }
    }
 }

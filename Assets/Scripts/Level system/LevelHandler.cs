@@ -90,14 +90,26 @@ public class LevelHandler : MonoBehaviour
 
       Data.MaxLevels[_currentSubject]++;
 
+      // unlock level
+      // fade out locked image
       var LevelIsLockedImage = _content.GetChild((level - 1) * 2).Find("LevelIsLocked");
-
       LevelIsLockedImage.GetComponent<RawImage>()
                         .DOFade(0, Constants.LevelUnlockTime)
                         .OnComplete(() =>
                         {
                            LevelIsLockedImage.gameObject.SetActive(false);
                         });
+
+      // fade in level image
+      var LevelImageTransform = _content.GetChild((level - 1) * 2).Find("Level image");
+      LevelImageTransform.gameObject.SetActive(true);
+      var LevelRawImage = LevelImageTransform.GetComponent<RawImage>();
+      LevelRawImage.color = new Color(LevelRawImage.color.r, LevelRawImage.color.g, LevelRawImage.color.b, 0);
+      LevelRawImage.DOFade(1, Constants.LevelUnlockTime);
+
+      // change transaction
+      _content.GetChild((level - 1) * 2 - 1).Find("Locked").gameObject.SetActive(false);
+      _content.GetChild((level - 1) * 2 - 1).Find("Unlocked").gameObject.SetActive(true);
    }
 
    // for buttons
