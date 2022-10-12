@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Constants : MonoBehaviour
 {
+   // Chemistry minigame 2
+   public const int IndexNumSize = 40;
+   public const float MaxFormulaLength = 1000; // in pixels
+   
    // Level selection
    // level content
    public const float LevelPercentageChangeTime = 3f;

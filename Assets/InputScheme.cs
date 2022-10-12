@@ -35,6 +35,15 @@ public partial class @InputScheme : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Backspace"",
+                    ""type"": ""Value"",
+                    ""id"": ""70845cb5-8420-412f-95dd-cdfd2ce069aa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -46,6 +55,17 @@ public partial class @InputScheme : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Space"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""112ab4a9-7632-4618-bbf3-8edad762cb23"",
+                    ""path"": ""<Keyboard>/backspace"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Backspace"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -63,6 +83,7 @@ public partial class @InputScheme : IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Space = m_Player.FindAction("Space", throwIfNotFound: true);
+        m_Player_Backspace = m_Player.FindAction("Backspace", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -123,11 +144,13 @@ public partial class @InputScheme : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Space;
+    private readonly InputAction m_Player_Backspace;
     public struct PlayerActions
     {
         private @InputScheme m_Wrapper;
         public PlayerActions(@InputScheme wrapper) { m_Wrapper = wrapper; }
         public InputAction @Space => m_Wrapper.m_Player_Space;
+        public InputAction @Backspace => m_Wrapper.m_Player_Backspace;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -140,6 +163,9 @@ public partial class @InputScheme : IInputActionCollection2, IDisposable
                 @Space.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpace;
                 @Space.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpace;
                 @Space.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpace;
+                @Backspace.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBackspace;
+                @Backspace.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBackspace;
+                @Backspace.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBackspace;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -147,6 +173,9 @@ public partial class @InputScheme : IInputActionCollection2, IDisposable
                 @Space.started += instance.OnSpace;
                 @Space.performed += instance.OnSpace;
                 @Space.canceled += instance.OnSpace;
+                @Backspace.started += instance.OnBackspace;
+                @Backspace.performed += instance.OnBackspace;
+                @Backspace.canceled += instance.OnBackspace;
             }
         }
     }
@@ -163,5 +192,6 @@ public partial class @InputScheme : IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnSpace(InputAction.CallbackContext context);
+        void OnBackspace(InputAction.CallbackContext context);
     }
 }

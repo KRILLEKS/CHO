@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 
 public class InputController : MonoBehaviour
 {
@@ -21,6 +23,12 @@ public class InputController : MonoBehaviour
    private void Start()
    {
       _inputScheme.Player.Space.performed += _ => PauseController.InvertGameState();
+      _inputScheme.Player.Backspace.performed += _ => ChemistryMinigame2.DeleteLetter();
+   }
+
+   private void Update()
+   {
+      Keyboard.current.onTextInput += ChemistryMinigame2.AddLetter;
    }
 
    private void OnDisable()
