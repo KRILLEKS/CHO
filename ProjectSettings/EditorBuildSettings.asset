@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelSelection.unity
     guid: 7f0921d724911044ba37f6b7d294293a
+  - enabled: 1
+    path: Assets/Scenes/LevelTracker.unity
+    guid: 6cc5779c0c7429f41ab07bb32ec039c8
   m_configObjects: {}

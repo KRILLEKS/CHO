@@ -32,7 +32,7 @@ public class LevelHandler : MonoBehaviour
       _background = backgroundSerializable;
       _extraBackground = extraBackgroundSerializable;
       _subjectTMP = subjectTMPSerializable;
-
+      _isChangingMenus = false;
       _extraBackground.gameObject.SetActive(false);
 
       GenerateLevelContent.GenerateLevels(LevelsDatabase.Subjects[0].levelsAmount, _currentSubject);
@@ -44,42 +44,71 @@ public class LevelHandler : MonoBehaviour
    {
       if (_isChangingMenus)
          return;
+      
+      // change current subject 
+      ChangeCurrentSubject(step);
 
+      ChangeBackgroundThings(_currentSubject);
+
+      // change levels
+      ChangeLevels();
+   }
+
+   public bool CanLevelSwitch()
+   {
+      return !_isChangingMenus;
+   }
+   
+   public void ChangeBackgroundThings(int currentSubjectIndex)
+   {      
       _isChangingMenus = true;
 
-      // change current subject 
+      // change background
+      ChangeBackground(currentSubjectIndex);
+      
+      // change text
+      ChangeText(currentSubjectIndex);
+   }
+
+   
+   private void ChangeLevels() =>
+      GenerateLevelContent.GenerateLevels(LevelsDatabase.Subjects[_currentSubject].levelsAmount, _currentSubject);
+
+   private void ChangeCurrentSubject(int step)
+   {
       if (_currentSubject + step >= Data.MaxLevels.Length)
          _currentSubject = 0;
       else if (_currentSubject + step < 0)
          _currentSubject = Data.MaxLevels.Length - 1;
       else
          _currentSubject += step;
+   }
 
-      // change background
+   private void ChangeText(int currentSubjectIndex)
+   {
+      _subjectTMP.DOFade(0, Constants.TextSwitchTime / 2)
+         .OnComplete(() =>
+         {
+            _subjectTMP.text = LevelsDatabase.Subjects[currentSubjectIndex].name;
+            _subjectTMP.DOFade(1, Constants.TextSwitchTime / 2);
+         });
+   }
+
+   private void ChangeBackground(int currentSubjectIndex)
+   {
       _extraBackground.gameObject.SetActive(true);
       _extraBackground.color = new Color(_extraBackground.color.r, _extraBackground.color.g, _extraBackground.color.b, 0);
-      _extraBackground.texture = LevelsDatabase.Subjects[_currentSubject].background;
+      _extraBackground.texture = LevelsDatabase.Subjects[currentSubjectIndex].background;
 
       _background.DOFade(0, Constants.BackgroundSwitchTime);
       _extraBackground.DOFade(1, Constants.BackgroundSwitchTime)
-                      .OnComplete(() =>
-                      {
-                         _background.texture = _extraBackground.texture;
-                         _background.color = new Color(_background.color.r, _background.color.g, _background.color.b, 1);
-                         _extraBackground.gameObject.SetActive(false);
-                         _isChangingMenus = false;
-                      });
-
-      // change text
-      _subjectTMP.DOFade(0, Constants.TextSwitchTime / 2)
-                 .OnComplete(() =>
-                 {
-                    _subjectTMP.text = LevelsDatabase.Subjects[_currentSubject].name;
-                    _subjectTMP.DOFade(1, Constants.TextSwitchTime / 2);
-                 });
-
-      // change levels
-      GenerateLevelContent.GenerateLevels(LevelsDatabase.Subjects[_currentSubject].levelsAmount, _currentSubject);
+         .OnComplete(() =>
+         {
+            _background.texture = _extraBackground.texture;
+            _background.color = new Color(_background.color.r, _background.color.g, _background.color.b, 1);
+            _extraBackground.gameObject.SetActive(false);
+            _isChangingMenus = false;
+         });
    }
 
    public static void UnlockLevel(int level)

@@ -34,7 +34,10 @@ public class LevelsDatabase : MonoBehaviour
    {
       // singleton
       if (_levelsDatabase != null)
-         Destroy(_levelsDatabase);
+      {
+         Destroy(gameObject);
+         return;
+      }
 
       _levelsDatabase = this;
       
