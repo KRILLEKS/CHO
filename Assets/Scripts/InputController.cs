@@ -23,12 +23,12 @@ public class InputController : MonoBehaviour
    private void Start()
    {
       _inputScheme.Player.Space.performed += _ => PauseController.InvertGameState();
-      _inputScheme.Player.Backspace.performed += _ => ChemistryMinigame2.DeleteLetter();
+      _inputScheme.Player.Backspace.performed += _ => ChemistryMinigame2FormulaHandler.DeleteLetter();
    }
 
    private void Update()
    {
-      Keyboard.current.onTextInput += ChemistryMinigame2.AddLetter;
+      Keyboard.current.onTextInput += ChemistryMinigame2FormulaHandler.AddLetter;
    }
 
    private void OnDisable()
