@@ -8,14 +8,13 @@ namespace LevelTracker
         private LevelTrackerUIFactory _uiFactory;
         private LevelHandler _levelHandler;
 
-        private int _currentPageIndex;
+        private int _currentPageIndex => LevelsDatabase.CurrentSubjectIndex;
 
         private void Start()
         {            
             //TODO: replace with singleton
             _levelHandler = FindObjectOfType<LevelHandler>();
             
-            _currentPageIndex = 0;
             _uiFactory.GeneratePage(_currentPageIndex);
         }
 
@@ -25,12 +24,14 @@ namespace LevelTracker
                 return;
             
             int maxIndex = LevelsDatabase.Subjects.Length - 1;
-            _currentPageIndex = Mathf.Clamp(_currentPageIndex, 0, maxIndex);
-            if (_currentPageIndex == maxIndex)
-                _currentPageIndex = 0;
+            int newIndex = Mathf.Clamp(_currentPageIndex, 0, maxIndex);
+            
+            if (newIndex == maxIndex)
+                newIndex = 0;
             else
-                _currentPageIndex++;
-            _uiFactory.GeneratePage(_currentPageIndex);
+                newIndex++;
+            LevelsDatabase.SetSubjectIndex(newIndex);
+            _uiFactory.GeneratePage(newIndex);
         }
 
         public void PreviousPage()
@@ -39,12 +40,13 @@ namespace LevelTracker
                 return;
             
             int maxIndex = LevelsDatabase.Subjects.Length - 1;
-            _currentPageIndex = Mathf.Clamp(_currentPageIndex, 0, maxIndex);
-            if (_currentPageIndex == 0)
-                _currentPageIndex = maxIndex;            
+            int newIndex = Mathf.Clamp(_currentPageIndex, 0, maxIndex);
+            if (newIndex == 0)
+                newIndex = maxIndex;            
             else
-                _currentPageIndex--;
-            _uiFactory.GeneratePage(_currentPageIndex);
+                newIndex--;
+            LevelsDatabase.SetSubjectIndex(newIndex);
+            _uiFactory.GeneratePage(newIndex);
         }
     
     }

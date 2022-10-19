@@ -19,7 +19,7 @@ public class LevelHandler : MonoBehaviour
    // private static variables 
    private static Transform _content;
    private static Coroutine _currentCoroutine;
-   private static int _currentSubject;
+   private static int CurrentSubjectIndex => LevelsDatabase.CurrentSubjectIndex;
    private static RawImage _background;
    private static RawImage _extraBackground;
    private static bool _isChangingMenus = false; // TODO: we can remove this flag
@@ -28,14 +28,14 @@ public class LevelHandler : MonoBehaviour
    private void Awake()
    {
       _content = contentSerializable;
-      _currentSubject = 0;
       _background = backgroundSerializable;
       _extraBackground = extraBackgroundSerializable;
       _subjectTMP = subjectTMPSerializable;
       _isChangingMenus = false;
       _extraBackground.gameObject.SetActive(false);
-
-      GenerateLevelContent.GenerateLevels(LevelsDatabase.Subjects[0].levelsAmount, _currentSubject);
+      
+      ChangeTextInstantly(CurrentSubjectIndex);
+      ChangeLevels();
    }
 
    // step can be -1 or +1
@@ -48,7 +48,7 @@ public class LevelHandler : MonoBehaviour
       // change current subject 
       ChangeCurrentSubject(step);
 
-      ChangeBackgroundThings(_currentSubject);
+      ChangeBackgroundThings(CurrentSubjectIndex);
 
       // change levels
       ChangeLevels();
@@ -70,26 +70,36 @@ public class LevelHandler : MonoBehaviour
       ChangeText(currentSubjectIndex);
    }
 
-   
-   private void ChangeLevels() =>
-      GenerateLevelContent.GenerateLevels(LevelsDatabase.Subjects[_currentSubject].levelsAmount, _currentSubject);
+
+   private void ChangeLevels()
+   {
+      GenerateLevelContent.GenerateLevels(LevelsDatabase.Subjects[CurrentSubjectIndex].levelsAmount, CurrentSubjectIndex);
+      ChangeText(CurrentSubjectIndex);
+   }
 
    private void ChangeCurrentSubject(int step)
    {
-      if (_currentSubject + step >= Data.MaxLevels.Length)
-         _currentSubject = 0;
-      else if (_currentSubject + step < 0)
-         _currentSubject = Data.MaxLevels.Length - 1;
+      int newIndex = CurrentSubjectIndex;
+      if (newIndex + step >= Data.MaxLevels.Length)
+         newIndex = 0;
+      else if (newIndex + step < 0)
+         newIndex = Data.MaxLevels.Length - 1;
       else
-         _currentSubject += step;
+         newIndex += step;
+      LevelsDatabase.SetSubjectIndex(newIndex);
    }
 
+   private void ChangeTextInstantly(int currentSubjectIndex)
+   {
+      _subjectTMP.text = LevelsDatabase.Subjects[currentSubjectIndex].name;
+   }
+   
    private void ChangeText(int currentSubjectIndex)
    {
       _subjectTMP.DOFade(0, Constants.TextSwitchTime / 2)
          .OnComplete(() =>
          {
-            _subjectTMP.text = LevelsDatabase.Subjects[currentSubjectIndex].name;
+            ChangeTextInstantly(currentSubjectIndex);
             _subjectTMP.DOFade(1, Constants.TextSwitchTime / 2);
          });
    }
@@ -114,10 +124,10 @@ public class LevelHandler : MonoBehaviour
    public static void UnlockLevel(int level)
    {
       if ((_content.childCount >= (level - 1) * 2 + 1) == false ||
-          (Data.MaxLevels[_currentSubject] >= level))
+          (Data.MaxLevels[CurrentSubjectIndex] >= level))
          return;
 
-      Data.MaxLevels[_currentSubject]++;
+      Data.MaxLevels[CurrentSubjectIndex]++;
 
       // unlock level
       // fade out locked image
@@ -155,12 +165,12 @@ public class LevelHandler : MonoBehaviour
    public void FinishLevel(int level)
    {
       // animation (percentage)
-      if (Data.Percentages[_currentSubject].Count < level)
-         Data.Percentages[_currentSubject].Add(Random.Range(50, 100) / 100f);
+      if (Data.Percentages[CurrentSubjectIndex].Count < level)
+         Data.Percentages[CurrentSubjectIndex].Add(Random.Range(50, 100) / 100f);
       else
-         Data.Percentages[_currentSubject][level - 1] = Random.Range(50, 100) / 100f;
+         Data.Percentages[CurrentSubjectIndex][level - 1] = Random.Range(50, 100) / 100f;
 
-      _currentCoroutine = StartCoroutine(ChangePercentageOverTime(_content.GetChild((level - 1) * 2), Data.Percentages[_currentSubject][level - 1]));
+      _currentCoroutine = StartCoroutine(ChangePercentageOverTime(_content.GetChild((level - 1) * 2), Data.Percentages[CurrentSubjectIndex][level - 1]));
 
       UnlockLevel(level + 1);
    }

@@ -17,6 +17,8 @@ public class LevelsDatabase : MonoBehaviour
    // private static variables
    private static LevelsDatabase _levelsDatabase;
 
+   public static int CurrentSubjectIndex { get; private set; }
+
    [Serializable]
    public class Subject
    {
@@ -57,4 +59,7 @@ public class LevelsDatabase : MonoBehaviour
          Data.Percentages.Add(new List<float>());
       }
    }
+
+   public static void SetSubjectIndex(int index) =>
+      CurrentSubjectIndex = index;
 }

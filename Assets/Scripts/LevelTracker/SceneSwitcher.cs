@@ -4,9 +4,9 @@ using UnityEngine.SceneManagement;
 
 namespace LevelTracker
 {
-    public class TestSceneSwitcher : MonoBehaviour
+    public class SceneSwitcher : MonoBehaviour
     {
-        private static TestSceneSwitcher _sceneSwitcher;
+        private static SceneSwitcher _sceneSwitcher;
 
         private void Awake()
         {      
@@ -20,12 +20,10 @@ namespace LevelTracker
             DontDestroyOnLoad(_sceneSwitcher);
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.O))
-                SceneManager.LoadScene("LevelTracker");
-            if (Input.GetKeyDown(KeyCode.P))
-                SceneManager.LoadScene("LevelSelection");
-        }
+        public static void SwitchSceneToSelection() => 
+            SceneManager.LoadScene("LevelSelection");
+
+        public static void SwitchSceneToTracker() => 
+            SceneManager.LoadScene("LevelTracker");
     }
 }
