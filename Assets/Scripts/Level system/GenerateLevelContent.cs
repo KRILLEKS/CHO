@@ -28,6 +28,12 @@ public class GenerateLevelContent : MonoBehaviour
       _thickElement = Resources.Load<Transform>($"LevelSelection/Thick element");
       _transactionBot2Top = Resources.Load<Transform>($"LevelSelection/Transaction bot2top");
       _transactionTop2Bot = Resources.Load<Transform>($"LevelSelection/Transaction top2bot");
+
+   }
+
+   private void Start()
+   {
+      Debug.Log(FindObjectOfType<TransitionScene>());
    }
 
    public static void GenerateLevels(int amount, int currentSubject)
@@ -67,6 +73,7 @@ public class GenerateLevelContent : MonoBehaviour
          var levelImage = instance.transform.Find($"Level image");
          var levelIsLocked = instance.transform.Find($"LevelIsLocked");
          var percentage = instance.transform.Find($"Percentage");
+         var button = instance.transform.Find($"Button").GetComponent<Button>();
          
          instance.transform.Find($"Filler").GetComponent<Image>().fillAmount = 0;
          instance.transform.Find($"Level number").GetComponent<TextMeshProUGUI>().text = level.ToString();
@@ -94,7 +101,14 @@ public class GenerateLevelContent : MonoBehaviour
             percentage.gameObject.SetActive(false);
          }
 
-         levelImage.GetComponent<Button>().onClick.AddListener(() => _levelHandler.StartLevel(level));
+         var subjectForButton = currentSubject;
+         var levelForButton = level;
+         button.onClick.AddListener(() =>
+         {
+            Debug.Log(currentSubject);
+            Debug.Log(level);
+            TransitionScene.Instance.SwapToScene(LevelsDatabase.Subjects[currentSubject].sceneNames[level - 1]);
+         });
       }
 
       void SetTransaction(GameObject transactionGO, bool isLocked)

@@ -28,6 +28,7 @@ public class LevelsDatabase : MonoBehaviour
       public Vector2 unlockedTextureSize;
       public Texture lockedTexture;
       public Vector2 lockedTextureSize;
+      public string[] sceneNames;
    }
    
    private void Awake()

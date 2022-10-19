@@ -1611,6 +1611,8 @@ MonoBehaviour:
     unlockedTextureSize: {x: 49.2, y: 80.8}
     lockedTexture: {fileID: 2800000, guid: b6ac82bf3c6eeab478e5ea48480795e9, type: 3}
     lockedTextureSize: {x: 49.2, y: 80.8}
+    sceneNames:
+    - ChemistryMinigame2
   - name: "\u0424\u0438\u0437\u0438\u043A\u0430"
     levelsAmount: 8
     background: {fileID: 2800000, guid: a825d06606509f84c8d158e2262abf5e, type: 3}
@@ -1618,6 +1620,7 @@ MonoBehaviour:
     unlockedTextureSize: {x: 81, y: 81}
     lockedTexture: {fileID: 2800000, guid: da417a94535113a468ead2afb541f388, type: 3}
     lockedTextureSize: {x: 60, y: 60}
+    sceneNames: []
 --- !u!4 &1156313712
 Transform:
   m_ObjectHideFlags: 0
@@ -2020,7 +2023,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1404633557}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
