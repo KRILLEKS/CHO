@@ -58,6 +58,7 @@ public class ChemistryMinigame2FormulaHandler : MonoBehaviour
       _holeUserFormulaTMP.text = _renderedStartText;
    }
 
+
    public void Edit()
    {
       _inputFieldIndexes = _inputFieldList.Select(x => x.text).ToArray();
@@ -73,7 +74,8 @@ public class ChemistryMinigame2FormulaHandler : MonoBehaviour
 
    public static void AddLetter(char inputChar)
    {
-      if (_holeUserFormulaTMP.gameObject.activeSelf == false)
+      // we in edit mode (set indexes)
+      if (_holeUserFormulaTMP != null && _holeUserFormulaTMP.gameObject.activeSelf == false)
          return;
 
       string input = inputChar.ToString();
@@ -95,6 +97,10 @@ public class ChemistryMinigame2FormulaHandler : MonoBehaviour
 
    public static void DeleteLetter()
    {
+      // we in edit mode (set indexes)
+      if (_holeUserFormulaTMP != null && _holeUserFormulaTMP.gameObject.activeSelf == false)
+         return;
+      
       if (_currentText.Length == 0)
          return;
 
@@ -134,6 +140,8 @@ public class ChemistryMinigame2FormulaHandler : MonoBehaviour
       string holeFormulaText = _startText + _currentText;
       _inputFieldList = new List<TMP_InputField>();
 
+      IsEditState(true);
+
       // if composite formula have something in it we must remove it
       for (int i = 0; i < _formulaFolder.childCount; i++)
          Destroy(_formulaFolder.GetChild(i).gameObject);
@@ -160,9 +168,7 @@ public class ChemistryMinigame2FormulaHandler : MonoBehaviour
 
       // spawn last piece
       InstantiateFormulaPiece(holeFormulaText.Substring(pieceStartIndex, holeFormulaText.Length - pieceStartIndex));
-
-      IsEditState(true);
-
+      
       void InstantiateFormulaPiece(string text)
       {
          var pieceGO = Instantiate(_formulaPiecePrefab, _formulaFolder);
@@ -234,6 +240,16 @@ public class ChemistryMinigame2FormulaHandler : MonoBehaviour
       return exerciseData;
    }
 
+   public static void DisableAllElements()
+   {
+      _bigConfirmButton.SetActive(false);
+      _holeUserFormulaTMP.gameObject.SetActive(false);
+
+      _smallConfirmButton.SetActive(false);
+      _smallEditButton.SetActive(false);
+      _formulaFolder.gameObject.SetActive(false);
+   }
+   
    public static void IsEditState(bool state)
    {
       _bigConfirmButton.SetActive(state == false);

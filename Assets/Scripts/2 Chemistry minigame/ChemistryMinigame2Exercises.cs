@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ChemistryMinigame2Exercises : MonoBehaviour
 {
@@ -18,7 +19,8 @@ public class ChemistryMinigame2Exercises : MonoBehaviour
    [Serializable]
    public class Level
    {
-      public string ExpectedResult;
       public string StartFormula;
+      [FormerlySerializedAs("ExpectedResult")] public string ExpectedFormula;
+      public string[] Indexes;
    }
 }

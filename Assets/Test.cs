@@ -11,6 +11,6 @@ public class Test : MonoBehaviour
 
    private void Awake()
    {
-      // Debug.Log(LayoutUtility.GetPreferredWidth(tmp.rectTransform));
+      Debug.Log(LayoutUtility.GetPreferredWidth(tmp.rectTransform));
    }
 }

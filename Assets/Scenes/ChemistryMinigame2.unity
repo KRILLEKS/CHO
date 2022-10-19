@@ -181,7 +181,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'H<size=40>2</size> + N<size=40>2</size> -> '
+  m_text: 'H<size=40>2</size> + N<size=40>2</size> '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -344,12 +344,12 @@ GameObject:
   - component: {fileID: 85581248}
   - component: {fileID: 85581247}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Get result
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &85581246
 RectTransform:
   m_ObjectHideFlags: 0
@@ -414,7 +414,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 85581248}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 469570399}
+        m_TargetAssemblyTypeName: ChemistryMinigame2ExercisesHandler, Assembly-CSharp
+        m_MethodName: Summarize
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &85581248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -699,22 +711,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelsSerializable:
-  - ExpectedResult: 2LiOH
-    StartFormula: Li2O+H2O
-  - ExpectedResult: PbI2+2KNO3
-    StartFormula: Pb(NO3)2+2KI
-  - ExpectedResult: 3Fe+4H2O
-    StartFormula: Fe3O4+4H2
-  - ExpectedResult: N2+3H2
-    StartFormula: 2NH3
-  - ExpectedResult: CaO+CO2
-    StartFormula: CaCO3
-  - ExpectedResult: SrCO3+2NH4Br
-    StartFormula: SrBr2+(NH4)2CO3
-  - ExpectedResult: CO2
-    StartFormula: C+O2
-  - ExpectedResult: Cu(NO3)2+Ag
-    StartFormula: Cu+2AgNO3
+  - StartFormula: Li2O+H2O
+    ExpectedFormula: LiOH
+    Indexes:
+    - 
+    - 
+    - 2
+  - StartFormula: Pb(NO3)2+KI
+    ExpectedFormula: PbI2+KNO3
+    Indexes:
+    - 
+    - 2
+    - 
+    - 2
+  - StartFormula: Fe3O4+H2
+    ExpectedFormula: Fe+H2O
+    Indexes:
+    - 
+    - 4
+    - 3
+    - 4
+  - StartFormula: 2NH3
+    ExpectedFormula: N2+3H2
+    Indexes:
+    - 2
+    - 
+    - 3
+  - StartFormula: CaCO3
+    ExpectedFormula: CaO+CO2
+    Indexes:
+    - 
+    - 
+    - 
+  - StartFormula: SrBr2+(NH4)2CO3
+    ExpectedFormula: SrCO3+NH4Br
+    Indexes:
+    - 
+    - 
+    - 
+    - 2
+  - StartFormula: C+O2
+    ExpectedFormula: CO2
+    Indexes:
+    - 
+    - 
+    - 
+  - StartFormula: Cu+AgNO3
+    ExpectedFormula: Cu(NO3)2+Ag
+    Indexes:
+    - 
+    - 2
+    - 
+    - 
 --- !u!114 &469570399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -729,6 +777,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelsFolder: {fileID: 1672599990}
   levelPointerRect: {fileID: 47918188}
+  resultButtonSerializable: {fileID: 85581245}
   pointerYFlyTime: 1
   pointerYFlyDelta: 10
   finishedExerciseColourSerializable: {r: 0, g: 1, b: 0.6, a: 1}
