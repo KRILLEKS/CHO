@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AssetProvider : MonoBehaviour
 {
-    private AssetProvider _assetProvider;
+    private static AssetProvider _assetProvider;
     public static GameObject ElementPrefab;
     public static GameObject AverageElementPrefab;
 
