@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ChemistryMinigame2.unity
     guid: dadbe2a970680914e88c320f61e3dcf4
+  - enabled: 1
+    path: Assets/Scenes/ChemicalGame1.unity
+    guid: 3fc8acdd13e6c734bafef6554d6fdbcd
   m_configObjects: {}

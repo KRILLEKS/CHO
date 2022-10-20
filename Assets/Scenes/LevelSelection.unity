@@ -1605,7 +1605,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   subjectsSerializable:
   - name: "\u0425\u0438\u043C\u0438\u044F"
-    levelsAmount: 5
+    levelsAmount: 2
     background: {fileID: 2800000, guid: d39b6f9a2c6086240a6940ed7963a4e7, type: 3}
     subjectIcon: {fileID: 2800000, guid: 343afa0b53f2c35499ae53e7255748b8, type: 3}
     unlockedTextureSize: {x: 49.2, y: 80.8}
@@ -1613,8 +1613,7 @@ MonoBehaviour:
     lockedTextureSize: {x: 49.2, y: 80.8}
     sceneNames:
     - ChemistryMinigame2
-    - ChemistryMinigame2
-    - ChemistryMinigame2
+    - ChemicalGame1
   - name: "\u0424\u0438\u0437\u0438\u043A\u0430"
     levelsAmount: 8
     background: {fileID: 2800000, guid: a825d06606509f84c8d158e2262abf5e, type: 3}
