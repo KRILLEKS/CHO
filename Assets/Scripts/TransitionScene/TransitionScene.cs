@@ -16,7 +16,13 @@ public class TransitionScene : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance != null)
+            Destroy(gameObject);
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(Instance);
+        }
     }
 
     void Start()
