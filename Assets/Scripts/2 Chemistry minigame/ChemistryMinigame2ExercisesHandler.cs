@@ -22,12 +22,14 @@ public class ChemistryMinigame2ExercisesHandler : MonoBehaviour
    // private static variables
    private static ChemistryMinigame2ExercisesHandler _exercisesHandler;
    private static Color _finishedExerciseColour;
-   private static GameObject _resultButton;
+   private static GameObject _resultButtonGO;
 
    private static Transform[] _levelRectTransforms;
    private static float _pointerStartY;
    private static ExerciseData[] _levelsData;
    private static int _currentExerciseIndex = 0;
+   private static float _finalPercentage;
+   
 
    public class ExerciseData
    {
@@ -42,9 +44,14 @@ public class ChemistryMinigame2ExercisesHandler : MonoBehaviour
       _exercisesHandler = this;
 
       _finishedExerciseColour = finishedExerciseColourSerializable;
-      _resultButton = resultButtonSerializable;
+      _resultButtonGO = resultButtonSerializable;
 
-      _resultButton.SetActive(false);
+      _resultButtonGO.SetActive(false);
+
+      var resultButton = _resultButtonGO.GetComponent<Button>();
+      // TODO: add game manager
+      resultButton.onClick.AddListener(() => LevelsSummarySingleton.Instance.SetLevelPercentage(_finalPercentage));
+      resultButton.onClick.AddListener(() => TransitionScene.Instance.SwapToScene("LevelSelection"));
    }
 
    private void Start()
@@ -101,8 +108,8 @@ public class ChemistryMinigame2ExercisesHandler : MonoBehaviour
    public void SetExercise(int index, bool toSave = true)
    {
       // save currentExercise
-      if (_resultButton.activeSelf) // result tab
-         _resultButton.SetActive(false);
+      if (_resultButtonGO.activeSelf) // result tab
+         _resultButtonGO.SetActive(false);
       else if (toSave)
          _levelsData[_currentExerciseIndex] = ChemistryMinigame2FormulaHandler.GetExerciseData();
 
@@ -112,7 +119,7 @@ public class ChemistryMinigame2ExercisesHandler : MonoBehaviour
       if (index == _levelRectTransforms.Length - 1)
       {
          ChemistryMinigame2FormulaHandler.DisableAllElements();
-         _resultButton.SetActive(true);
+         _resultButtonGO.SetActive(true);
       }
       // set exercise
       else
@@ -151,6 +158,7 @@ public class ChemistryMinigame2ExercisesHandler : MonoBehaviour
          }
       }
 
-      Debug.Log(((float)correctAnswers / ChemistryMinigame2Exercises.Levels.Length) * 100);
+      Debug.Log("final percentage: " +((float)correctAnswers / ChemistryMinigame2Exercises.Levels.Length));
+      _finalPercentage = ((float)correctAnswers / ChemistryMinigame2Exercises.Levels.Length);
    }
 }

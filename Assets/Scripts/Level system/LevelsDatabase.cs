@@ -13,10 +13,7 @@ public class LevelsDatabase : MonoBehaviour
    
    // public static variables
    public static Subject[] Subjects;
-
-   // private static variables
-   private static LevelsDatabase _levelsDatabase;
-
+   
    [Serializable]
    public class Subject
    {
@@ -33,26 +30,22 @@ public class LevelsDatabase : MonoBehaviour
    
    private void Awake()
    {
-      // singleton
-      if (_levelsDatabase != null)
-         Destroy(_levelsDatabase);
-
-      _levelsDatabase = this;
-      
-      DontDestroyOnLoad(_levelsDatabase);
-      
       // default initialization
       Subjects = subjectsSerializable;
+      
+      // means that data is initialized before (data is singleton)
+      if (Data.MaxLevels != null)
+         return;
       
       // initialize data
       Data.MaxLevels = new int[Subjects.Length];
       
-      for (int i = 0; i < Data.MaxLevels.Length; i++)
-         Data.MaxLevels[i] = 1;
+      // for (int i = 0; i < Data.MaxLevels.Length; i++)
+      //    Data.MaxLevels[i] = 1;
 
-      for (var index = 0; index < Data.MaxLevels.Length; index++)
+      for (var subjectIndex = 0; subjectIndex < Subjects.Length; subjectIndex++)
       {
-         Data.Percentages.Add(new List<float>());
+         Data.Percentages.Add(new float[Subjects[subjectIndex].levelsAmount]);
       }
    }
 }

@@ -1613,6 +1613,8 @@ MonoBehaviour:
     lockedTextureSize: {x: 49.2, y: 80.8}
     sceneNames:
     - ChemistryMinigame2
+    - ChemistryMinigame2
+    - ChemistryMinigame2
   - name: "\u0424\u0438\u0437\u0438\u043A\u0430"
     levelsAmount: 8
     background: {fileID: 2800000, guid: a825d06606509f84c8d158e2262abf5e, type: 3}
@@ -2174,6 +2176,63 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1929661600
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1929661601}
+  - component: {fileID: 1929661602}
+  - component: {fileID: 1929661603}
+  m_Layer: 0
+  m_Name: LevelSingletons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1929661601
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1929661600}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 559.4159, y: 585.8277, z: -17.656338}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1929661602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1929661600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a96afa3798a882478ea6eaf0d87044a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1929661603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1929661600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cd079fe9de304049a754a9f49669454, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1980266562 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1965901784422736728, guid: 53667245c98e9104187ef826bea6d60d, type: 3}

@@ -38,8 +38,30 @@ public class LevelHandler : MonoBehaviour
       GenerateLevelContent.GenerateLevels(LevelsDatabase.Subjects[0].levelsAmount, _currentSubject);
    }
 
+   private void OnEnable()
+   {
+      // means we just launched app
+      if (LevelsSummarySingleton.CurrentLevel == -1)
+         return;
+
+      // We spawn objects in generate level content
+      // and unity needs time to generate them
+      // TODO: change that. So we won't destroy/spawn objects this often
+      // TODO: scale with loading animation (if delay will be used)
+      StartCoroutine(OnEnableWithDelay());
+      
+      IEnumerator OnEnableWithDelay()
+      {
+         yield return new WaitForSeconds(0.8f);
+
+         StartCoroutine(ChangePercentageOverTime(_content.GetChild((LevelsSummarySingleton.CurrentLevel - 1) * 2), LevelsSummarySingleton.Instance.GetLevelPercentage()));
+         UnlockLevel(LevelsSummarySingleton.CurrentLevel + 1);
+      }
+   }
+
    // step can be -1 or +1
    // this function for buttons
+   // with step = 0 it can be used to update current info
    public void SwitchLevel(int step)
    {
       if (_isChangingMenus)
@@ -82,23 +104,30 @@ public class LevelHandler : MonoBehaviour
       GenerateLevelContent.GenerateLevels(LevelsDatabase.Subjects[_currentSubject].levelsAmount, _currentSubject);
    }
 
+   // we use this method to unlock next level 
    public static void UnlockLevel(int level)
    {
+      Debug.Log("Try to unlock level ");
+
+      // first condition means that we completed last level
+      // second condition means that we don't have to unlock level (it's already unlocked)
       if ((_content.childCount >= (level - 1) * 2 + 1) == false ||
           (Data.MaxLevels[_currentSubject] >= level))
          return;
 
-      Data.MaxLevels[_currentSubject]++;
+      Debug.Log("Unlock level" + level);
 
       // unlock level
       // fade out locked image
-      var LevelIsLockedImage = _content.GetChild((level - 1) * 2).Find("LevelIsLocked");
-      LevelIsLockedImage.GetComponent<RawImage>()
-                        .DOFade(0, Constants.LevelUnlockTime)
-                        .OnComplete(() =>
-                        {
-                           LevelIsLockedImage.gameObject.SetActive(false);
-                        });
+      Transform levelTransform = _content.GetChild((level - 1) * 2);
+      Transform levelIsLockedTransform = levelTransform.Find("LevelIsLocked");
+
+      levelIsLockedTransform.GetComponent<RawImage>()
+                            .DOFade(0, Constants.LevelUnlockTime)
+                            .OnComplete(() =>
+                            {
+                               levelIsLockedTransform.gameObject.SetActive(false);
+                            });
 
       // fade in level image
       var LevelImageTransform = _content.GetChild((level - 1) * 2).Find("Level image");
@@ -110,30 +139,6 @@ public class LevelHandler : MonoBehaviour
       // change transaction
       _content.GetChild((level - 1) * 2 - 1).Find("Locked").gameObject.SetActive(false);
       _content.GetChild((level - 1) * 2 - 1).Find("Unlocked").gameObject.SetActive(true);
-   }
-
-   // for buttons
-   public void StartLevel(int level)
-   {
-      if (_currentCoroutine != null)
-      {
-         StopCoroutine(_currentCoroutine);
-      }
-
-      FinishLevel(level);
-   }
-
-   public void FinishLevel(int level)
-   {
-      // animation (percentage)
-      if (Data.Percentages[_currentSubject].Count < level)
-         Data.Percentages[_currentSubject].Add(Random.Range(50, 100) / 100f);
-      else
-         Data.Percentages[_currentSubject][level - 1] = Random.Range(50, 100) / 100f;
-
-      _currentCoroutine = StartCoroutine(ChangePercentageOverTime(_content.GetChild((level - 1) * 2), Data.Percentages[_currentSubject][level - 1]));
-
-      UnlockLevel(level + 1);
    }
 
    public IEnumerator ChangePercentageOverTime(Transform objTransform, float percentage)
