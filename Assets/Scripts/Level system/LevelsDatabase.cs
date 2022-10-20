@@ -13,7 +13,10 @@ public class LevelsDatabase : MonoBehaviour
    
    // public static variables
    public static Subject[] Subjects;
-   
+
+   // private static variables
+   public static int CurrentSubjectIndex { get; private set; }
+
    [Serializable]
    public class Subject
    {
@@ -30,6 +33,7 @@ public class LevelsDatabase : MonoBehaviour
    
    private void Awake()
    {
+
       // default initialization
       Subjects = subjectsSerializable;
       
@@ -48,4 +52,7 @@ public class LevelsDatabase : MonoBehaviour
          Data.Percentages.Add(new float[Subjects[subjectIndex].levelsAmount]);
       }
    }
+
+   public static void SetSubjectIndex(int index) =>
+      CurrentSubjectIndex = index;
 }
