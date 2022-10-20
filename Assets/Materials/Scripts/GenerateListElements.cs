@@ -24,7 +24,7 @@ public  class GenerateListElements : MonoBehaviour
     public int countRequiredValues;
     public int[] randomValuesSubstances;
     public static List<SubstanceManager.Substance> list = new List<SubstanceManager.Substance>();
-
+    public float delay;
 
     void Awake()
     {
@@ -43,8 +43,9 @@ public  class GenerateListElements : MonoBehaviour
             textElement.text = c.nameSubstance;
             textElement.transform.name = c.formula;
             Instantiate(textElement).transform.SetParent(windowList.transform);
+            StartCoroutine(WriteTextDelay.writeSymbolDelay(GameObject.Find(c.formula+"(Clone)"),delay));
 
-            for(int i=0; i<c.elements.Length;i++)
+            for (int i=0; i<c.elements.Length;i++)
             {
                 Vector2 pos = spawnPos.position + new Vector3(0, Random.Range(-range.y, range.x));
                 Instantiate(c.elements[i].Prefab,pos,Quaternion.identity).transform.SetParent(gameWindow.transform);

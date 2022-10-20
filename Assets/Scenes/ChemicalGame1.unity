@@ -1742,6 +1742,7 @@ MonoBehaviour:
   spawnPos: {fileID: 2011305994}
   countRequiredValues: 15
   randomValuesSubstances: 
+  delay: 0.046
 --- !u!114 &519420036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3558,7 +3559,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 5:00
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b961147ec0b8f9c4c8e96cb41bff94a7, type: 2}
   m_sharedMaterial: {fileID: 4615055376142327155, guid: b961147ec0b8f9c4c8e96cb41bff94a7, type: 2}
@@ -3567,7 +3568,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4284957962
+    rgba: 4285575795
   m_fontColor: {r: 0.4509804, g: 0.69803923, b: 0.4392157, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -5058,6 +5059,7 @@ GameObject:
   - component: {fileID: 1755423993}
   - component: {fileID: 1755423995}
   - component: {fileID: 1755423994}
+  - component: {fileID: 1755423996}
   m_Layer: 5
   m_Name: TextTask
   m_TagString: Untagged
@@ -5184,6 +5186,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1755423992}
   m_CullTransparentMesh: 1
+--- !u!114 &1755423996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755423992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aebbf25ae43dc84895b498a1fa79cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 1755423994}
+  delay: 0.046
 --- !u!1 &1801562361
 GameObject:
   m_ObjectHideFlags: 0

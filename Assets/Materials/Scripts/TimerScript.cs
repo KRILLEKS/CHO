@@ -14,13 +14,13 @@ public class TimerScript : MonoBehaviour
     GameObject levelEnd;
     void Start()
     {
-
-        timerText.text = string.Format("{0:d1}:{1:d2}", (int)minute, (int)second);
+       timerText.text = string.Format("{0:d1}:{1:d2}", (int)minute, (int)second);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+
         if (second > 0 || minute > 0)
         {
             if (second < 0)
