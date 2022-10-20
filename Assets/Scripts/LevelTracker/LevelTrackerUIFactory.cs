@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using static LevelTracker.UILevelElement;
@@ -57,7 +58,7 @@ namespace LevelTracker
 
         private void SetReadyLevelsText(int subjectIndex)
         {
-            int countOfReadyLevels = Data.Percentages[subjectIndex].Count;
+            int countOfReadyLevels = Data.Percentages[subjectIndex].Length;
             _uiTextOfReadyLevels.text = $"{countOfReadyLevels} / {LevelsDatabase.Subjects[subjectIndex].levelsAmount}";
         }
         
@@ -93,7 +94,7 @@ namespace LevelTracker
         
         private void ConfigureAverageElement(UILevelElement element, ElementParameters parameters)
         {
-            List<float> percentages = Data.Percentages[parameters.SubjectIndex];
+            List<float> percentages = Data.Percentages[parameters.SubjectIndex].ToList();
             element.Construct(parameters, CalculateAverageValue(percentages));
             _levelHandler.StartCoroutine(_levelHandler
                 .ChangePercentageOverTime(element.transform, CalculateAverageValue(percentages) / 100f));
@@ -114,7 +115,7 @@ namespace LevelTracker
         }
         private void StartSettingPercentages(ElementParameters parameters, Transform elementTransform)
         {
-            List<float> percentages = Data.Percentages[parameters.SubjectIndex];
+            List<float> percentages = Data.Percentages[parameters.SubjectIndex].ToList();
             if (!parameters.IsLocked
                 && percentages.Count > parameters.LevelIndex
                 && percentages[parameters.LevelIndex] >= 0)
