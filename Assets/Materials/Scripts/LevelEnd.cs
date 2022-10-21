@@ -21,7 +21,16 @@ public class LevelEnd : MonoBehaviour
         box.localPosition = new Vector2(0, -Screen.height);
         box.LeanMoveLocalY(0, 0.5f).setEaseOutExpo().delay = 0.1f;
 
-        textResult.text += Accept.countCorrectAnswer.ToString() + " èç " + content.transform.childCount.ToString();
+        textResult.text += Accept.countCorrectAnswer.ToString() + " Ð¸Ð· " + content.transform.childCount.ToString();
+        
+        Save();
+    }
+    
+    // it's mine.
+    // Invokes when we exit and when level ends 
+    public void Save()
+    {
+        FindObjectOfType<LevelsSummarySingleton>().SetLevelPercentage((float)Accept.countCorrectAnswer / 5); // 5 it's hard code. 
     }
 
 

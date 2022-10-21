@@ -1840,6 +1840,7 @@ MonoBehaviour:
     sceneNames:
     - ChemistryMinigame2
     - ChemicalGame1
+    - ChemicalGame1
   - name: "\u0424\u0438\u0437\u0438\u043A\u0430"
     levelsAmount: 8
     background: {fileID: 2800000, guid: a825d06606509f84c8d158e2262abf5e, type: 3}

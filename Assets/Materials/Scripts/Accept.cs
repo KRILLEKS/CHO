@@ -43,7 +43,7 @@ public class Accept : MonoBehaviour
                     levelEnd.SetActive(true);
                 }
                 DeselectObject.RemoveSelection(listElements);
-                t.text = "Вещество найдено";
+                t.text = "Р’РµС‰РµСЃС‚РІРѕ РЅР°Р№РґРµРЅРѕ";
                 isLight = true;
                 isCorrect = true;
                 isFind = true;
@@ -52,7 +52,7 @@ public class Accept : MonoBehaviour
 
         if(!isFind)
         {
-            t.text = "Неправильно введена формула";
+            t.text = "РќРµРїСЂР°РІРёР»СЊРЅРѕ РІРІРµРґРµРЅР° С„РѕСЂРјСѓР»Р°";
             DeselectObject.RemoveSelection(listElements);
             isLight = true;
             isCorrect = false;
@@ -82,7 +82,7 @@ public class Accept : MonoBehaviour
                 t.color = new Color(0, 0, 0, 0);
                 yield return new WaitForSeconds(0.5f);
             }
-            t.text=t.text.Replace("Вещество найдено", "");
+            t.text=t.text.Replace("Р’РµС‰РµСЃС‚РІРѕ РЅР°Р№РґРµРЅРѕ", "");
             t.color = new Color(255, 255, 255, 255);
             isFind = false;
             isAccept = false;
@@ -96,7 +96,7 @@ public class Accept : MonoBehaviour
                 t.color = new Color(0, 0, 0, 0);
                 yield return new WaitForSeconds(0.5f);
             }
-            t.text=t.text.Replace("Неправильно введена формула", "");
+            t.text=t.text.Replace("РќРµРїСЂР°РІРёР»СЊРЅРѕ РІРІРµРґРµРЅР° С„РѕСЂРјСѓР»Р°", "");
             t.color = new Color(255, 255, 255, 255);
             isAccept = false;
         }

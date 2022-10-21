@@ -89,6 +89,7 @@ public class GenerateLevelContent : MonoBehaviour
          {
             levelIsLocked.gameObject.SetActive(false);
 
+            Debug.Log($"subject: {currentSubjectIndex} level: {level} percentage: {Data.Percentages[currentSubjectIndex][level - 1]}");
             if (Data.Percentages[currentSubjectIndex].Length >= level && Data.Percentages[currentSubjectIndex][level - 1] != -1)
                _levelHandler.StartCoroutine(_levelHandler.ChangePercentageOverTime(instance.transform, Data.Percentages[currentSubjectIndex][level - 1]));
             else
