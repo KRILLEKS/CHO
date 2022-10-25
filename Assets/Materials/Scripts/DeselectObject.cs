@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +23,7 @@ public class DeselectObject : MonoBehaviour
     }
     public static void RemoveSelection(GameObject listElements)
     {
-        GenerateListElements.decision = "";
+        GenerateListElements.decision = String.Empty;
         foreach (var child in listElements.GetComponentsInChildren<Transform>())
             child.GetComponentInChildren<SettingElement>().DeselectElement();
     }

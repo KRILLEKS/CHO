@@ -415,8 +415,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 469570399}
-        m_TargetAssemblyTypeName: ChemistryMinigame2ExercisesHandler, Assembly-CSharp
+      - m_Target: {fileID: 469570400}
+        m_TargetAssemblyTypeName: ChemistryMinigame2Buttons, Assembly-CSharp
         m_MethodName: Summarize
         m_Mode: 1
         m_Arguments:
@@ -657,6 +657,7 @@ GameObject:
   - component: {fileID: 469570396}
   - component: {fileID: 469570399}
   - component: {fileID: 469570398}
+  - component: {fileID: 469570400}
   m_Layer: 0
   m_Name: Controllers
   m_TagString: Untagged
@@ -781,6 +782,18 @@ MonoBehaviour:
   pointerYFlyTime: 1
   pointerYFlyDelta: 10
   finishedExerciseColourSerializable: {r: 0, g: 1, b: 0.6, a: 1}
+--- !u!114 &469570400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469570395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d140695cd123eb5419f8480a15b0a685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &587331039
 GameObject:
   m_ObjectHideFlags: 0
@@ -865,9 +878,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 469570396}
-        m_TargetAssemblyTypeName: ChemistryMinigame2, Assembly-CSharp
-        m_MethodName: MakeCompositeFormula
+      - m_Target: {fileID: 469570400}
+        m_TargetAssemblyTypeName: ChemistryMinigame2Buttons, Assembly-CSharp
+        m_MethodName: Confirm
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -999,8 +1012,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 469570396}
-        m_TargetAssemblyTypeName: ChemistryMinigame2FormulaHandler, Assembly-CSharp
+      - m_Target: {fileID: 469570400}
+        m_TargetAssemblyTypeName: ChemistryMinigame2Buttons, Assembly-CSharp
         m_MethodName: Edit
         m_Mode: 1
         m_Arguments:
@@ -1336,9 +1349,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 469570399}
-        m_TargetAssemblyTypeName: ChemistryMinigame2ExercisesHandler, Assembly-CSharp
-        m_MethodName: NextExercise
+      - m_Target: {fileID: 469570400}
+        m_TargetAssemblyTypeName: ChemistryMinigame2Buttons, Assembly-CSharp
+        m_MethodName: ConfirmIndexes
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2161,7 +2174,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
   m_XRTrackingOrigin: {fileID: 0}

@@ -39,7 +39,7 @@ public class MenuPause : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-    void DelayTimeScale()
+    void DelayTimeScale(float scale)
     {
                 Time.timeScale = 0f;
 

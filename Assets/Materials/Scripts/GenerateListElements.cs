@@ -52,6 +52,7 @@ public  class GenerateListElements : MonoBehaviour
 
             }    
         }
+        
         Destroy(GameObject.Find("ElementsDataBase"));
     }
 
@@ -62,6 +63,7 @@ public  class GenerateListElements : MonoBehaviour
         System.Random rnd = new System.Random();
         int[] randomCountSubstance = new int[countSubstance-1];
         randomCountSubstance[0] = rnd.Next(0, countSubstance );
+
         for (int i = 1; i < countSubstance-1;)
         {
             int num = rnd.Next(0, countSubstance ); 

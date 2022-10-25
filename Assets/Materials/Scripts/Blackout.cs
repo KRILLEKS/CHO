@@ -15,9 +15,7 @@ public class Blackout : MonoBehaviour
         if (blackout.alpha > 0.01)
         {
             blackout.alpha -= 0.01f;
-
         }
         else canvas.SetActive(false);
     }
-
 }

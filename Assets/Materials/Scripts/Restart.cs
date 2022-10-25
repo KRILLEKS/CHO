@@ -17,5 +17,4 @@ public class Restart : MonoBehaviour
         Destroy(chemicalElements);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-  
 }

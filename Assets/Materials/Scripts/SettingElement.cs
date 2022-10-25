@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine.Events;
 using System.Linq;
 using System;
+using System.Text.RegularExpressions;
 
 public class SettingElement : MonoBehaviour
 {
@@ -22,8 +23,9 @@ public class SettingElement : MonoBehaviour
         {
             if (!isSelect)
             {
-                GenerateListElements.decision += this.gameObject.name.Replace("(Clone)", ""); 
-                
+                GenerateListElements.decision += gameObject.name.Replace("(Clone)", "");
+                Regex regex = new Regex(@"\.*^[Clone]\.*");
+
                 //t.GetComponent<TextMeshProUGUI>().text += (this.gameObject.name).Replace("(Clone)", "");
                 t.GetComponent<TextMeshProUGUI>().text += CreateFormulaText((this.gameObject.name).Replace("(Clone)", ""));
                 SelectElement();
@@ -34,8 +36,9 @@ public class SettingElement : MonoBehaviour
                 //DeselectElement();
             }
         }
-
+        
     }
+    
     public void DeselectElement()
     {
         this.gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);

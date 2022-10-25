@@ -22,6 +22,10 @@ public class ChemistryMinigame2FormulaHandler : MonoBehaviour
    [SerializeField] private int maxFormulaLengthSerializable = 15;
    [SerializeField] private float indexSizeSerializable = 40;
 
+   // public static variables
+   public static List<TMP_InputField> _inputFieldList;
+   public static string[] _inputFieldIndexes;
+
    // private static variables
    private static GameObject _bigConfirmButton;
    private static GameObject _smallConfirmButton;
@@ -37,9 +41,6 @@ public class ChemistryMinigame2FormulaHandler : MonoBehaviour
    private static string _startText;
    private static string _renderedStartText;
    private static string _currentText = String.Empty;
-
-   private static List<TMP_InputField> _inputFieldList;
-   private static string[] _inputFieldIndexes;
 
    private void Awake()
    {
@@ -58,19 +59,7 @@ public class ChemistryMinigame2FormulaHandler : MonoBehaviour
       _holeUserFormulaTMP.text = _renderedStartText;
    }
 
-
-   public void Edit()
-   {
-      _inputFieldIndexes = _inputFieldList.Select(x => x.text).ToArray();
-      _inputFieldList = null;
-
-      IsEditState(false);
-   }
-
-   public void ConfirmIndexes()
-   {
-      ChemistryMinigame2ExercisesHandler.NextExercise();
-   }
+# region WritingOnKeyboard
 
    public static void AddLetter(char inputChar)
    {
@@ -100,7 +89,7 @@ public class ChemistryMinigame2FormulaHandler : MonoBehaviour
       // we in edit mode (set indexes)
       if (_holeUserFormulaTMP != null && _holeUserFormulaTMP.gameObject.activeSelf == false)
          return;
-      
+
       if (_currentText.Length == 0)
          return;
 
@@ -108,6 +97,10 @@ public class ChemistryMinigame2FormulaHandler : MonoBehaviour
 
       RenderFormula(_holeUserFormulaTMP, _currentText, true);
    }
+
+#endregion
+
+#region AuxiliaryMethods
 
    public static void RenderFormula(TextMeshProUGUI tmp2Render, string formulaText, bool toUseStartString = false)
    {
@@ -133,14 +126,28 @@ public class ChemistryMinigame2FormulaHandler : MonoBehaviour
       tmp2Render.text = (toUseStartString ? _renderedStartText : null) + actualText;
    }
 
-   // invokes on button press
+   public static void IsEditState(bool state)
+   {
+      _bigConfirmButton.SetActive(state == false);
+      _holeUserFormulaTMP.gameObject.SetActive(state == false);
+
+      _smallConfirmButton.SetActive(state);
+      _smallEditButton.SetActive(state);
+      _formulaFolder.gameObject.SetActive(state);
+
+      if (state == false)
+         // if composite formula have something in it we must remove it
+         for (int i = 0; i < _formulaFolder.childCount; i++)
+            Destroy(_formulaFolder.GetChild(i).gameObject);
+      else
+         MakeCompositeFormula();
+   }
+
    // add input fields and split formula
    public static void MakeCompositeFormula()
    {
       string holeFormulaText = _startText + _currentText;
       _inputFieldList = new List<TMP_InputField>();
-
-      IsEditState(true);
 
       // if composite formula have something in it we must remove it
       for (int i = 0; i < _formulaFolder.childCount; i++)
@@ -168,7 +175,7 @@ public class ChemistryMinigame2FormulaHandler : MonoBehaviour
 
       // spawn last piece
       InstantiateFormulaPiece(holeFormulaText.Substring(pieceStartIndex, holeFormulaText.Length - pieceStartIndex));
-      
+
       void InstantiateFormulaPiece(string text)
       {
          var pieceGO = Instantiate(_formulaPiecePrefab, _formulaFolder);
@@ -187,14 +194,18 @@ public class ChemistryMinigame2FormulaHandler : MonoBehaviour
       }
    }
 
-   public static void LoadExercise(ChemistryMinigame2ExercisesHandler.ExerciseData exerciseData)
+#endregion
+
+#region ForTasksHandler (external methods)
+
+   public static void LoadExercise(ChemistryMinigame2TasksHandler.ExerciseData exerciseData)
    {
       _startText = exerciseData.StartFormula;
       RenderFormula(_holeUserFormulaTMP, _startText);
       _renderedStartText = _holeUserFormulaTMP.text;
 
       _inputFieldList = null;
-      
+
       // if we not in edit mode it'll be equal to null
       _inputFieldIndexes = exerciseData.Indexes;
 
@@ -220,9 +231,9 @@ public class ChemistryMinigame2FormulaHandler : MonoBehaviour
       }
    }
 
-   public static ChemistryMinigame2ExercisesHandler.ExerciseData GetExerciseData()
+   public static ChemistryMinigame2TasksHandler.ExerciseData GetExerciseData()
    {
-      ChemistryMinigame2ExercisesHandler.ExerciseData exerciseData = new ChemistryMinigame2ExercisesHandler.ExerciseData();
+      ChemistryMinigame2TasksHandler.ExerciseData exerciseData = new ChemistryMinigame2TasksHandler.ExerciseData();
 
       exerciseData.StartFormula = _startText;
       exerciseData.UserFormula = _currentText;
@@ -249,19 +260,6 @@ public class ChemistryMinigame2FormulaHandler : MonoBehaviour
       _smallEditButton.SetActive(false);
       _formulaFolder.gameObject.SetActive(false);
    }
-   
-   public static void IsEditState(bool state)
-   {
-      _bigConfirmButton.SetActive(state == false);
-      _holeUserFormulaTMP.gameObject.SetActive(state == false);
 
-      _smallConfirmButton.SetActive(state);
-      _smallEditButton.SetActive(state);
-      _formulaFolder.gameObject.SetActive(state);
-
-      if (state == false)
-         // if composite formula have something in it we must remove it
-         for (int i = 0; i < _formulaFolder.childCount; i++)
-            Destroy(_formulaFolder.GetChild(i).gameObject);
-   }
+#endregion
 }
