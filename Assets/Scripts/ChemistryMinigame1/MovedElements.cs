@@ -8,7 +8,8 @@ public class MovedElements : MonoBehaviour
    public Rigidbody2D rb;
    private Vector2 direction;
    private System.Random rnd;
-    private float timeContactElem;
+   private float timeContactElem;
+   public  bool isSelectElements = false;
    //private float timeContactBar;
 
    void Start()
@@ -23,6 +24,7 @@ public class MovedElements : MonoBehaviour
 
    void FixedUpdate()
    {
+        if(isSelectElements==false)
       rb.MovePosition(rb.position + direction.normalized * 3f * Time.fixedDeltaTime);
    }
 
@@ -30,15 +32,18 @@ public class MovedElements : MonoBehaviour
    {
         switch (collision.gameObject.name)
         {
-            case "Up":           
-                    direction.y *= -1;
+            case "Up":
+            case "PipeUp":
+                direction.y *= -1;
                 break;
             case "Down":
                 direction.y *= -1;
                 break;
+            case "PipeLeft":
             case "Left":
                 direction.x *= -1;
                 break;
+            case "PipeRight":
             case "Right":
                 direction.x *= -1;
                 break;
@@ -76,4 +81,6 @@ public class MovedElements : MonoBehaviour
          timeContactElem = 0;
       }
    }
+    
 }
+    
