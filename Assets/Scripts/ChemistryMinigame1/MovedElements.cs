@@ -33,17 +33,20 @@ public class MovedElements : MonoBehaviour
         switch (collision.gameObject.name)
         {
             case "Up":
-            case "PipeUp":
+            case "PipeDownUp":
+            case "PipeUpUp":
                 direction.y *= -1;
                 break;
             case "Down":
                 direction.y *= -1;
                 break;
-            case "PipeLeft":
+            case "PipeDownLeft":
+            case "PipeUpLeft":
             case "Left":
                 direction.x *= -1;
                 break;
-            case "PipeRight":
+            case "PipeUpRight":
+            case "PipeDownRight":
             case "Right":
                 direction.x *= -1;
                 break;
