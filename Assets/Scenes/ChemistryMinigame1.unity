@@ -235,7 +235,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1624019909}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.9353333, y: 0.9007037}
   m_AnchorMax: {x: 0.9862084, y: 0.97748154}
@@ -1676,7 +1676,7 @@ RectTransform:
   m_Children:
   - {fileID: 1922440044}
   m_Father: {fileID: 1624019909}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2022,7 +2022,7 @@ RectTransform:
   - {fileID: 997293464}
   - {fileID: 1626347426}
   m_Father: {fileID: 1624019909}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2525,6 +2525,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1926175694}
+  - {fileID: 1988644249}
   - {fileID: 1141133666}
   - {fileID: 41597798}
   - {fileID: 1036141319}
@@ -3194,8 +3196,8 @@ RectTransform:
   m_LocalScale: {x: 108, y: 108, z: 108}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2120166049}
-  m_RootOrder: 1
+  m_Father: {fileID: 1624019909}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0.43841666, y: 0.94233334}
   m_AnchorMax: {x: 0.5541667, y: 1}
@@ -3458,8 +3460,8 @@ RectTransform:
   m_LocalScale: {x: 108, y: 108, z: 108}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2120166049}
-  m_RootOrder: 2
+  m_Father: {fileID: 1624019909}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.45039582, y: 0.13133335}
   m_AnchorMax: {x: 0.5541667, y: 0.21000001}
@@ -3724,8 +3726,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 895512681}
-  - {fileID: 1926175694}
-  - {fileID: 1988644249}
   m_Father: {fileID: 2026549559}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

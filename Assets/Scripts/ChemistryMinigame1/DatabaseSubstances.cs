@@ -14,7 +14,7 @@ public class DatabaseSubstances : MonoBehaviour
     static public List<GameObject> elementsPrefab = new List<GameObject>();
     static public Dictionary<int, List<GameObject>> selectedElements = new Dictionary<int, List<GameObject>>();
     static public int numberChoice = 1;
-    static public int numberInContainer = -1;
+    static public int numbersInContainer = -1;
 
     [Serializable]
     public class Substance
@@ -26,6 +26,7 @@ public class DatabaseSubstances : MonoBehaviour
 
     private void Awake()
     {
+        
         Substances = SubstancesSerializable;
         selectedElements.Add(numberChoice, new List<GameObject>());
     }

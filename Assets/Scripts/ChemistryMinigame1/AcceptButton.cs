@@ -8,15 +8,17 @@ public class AcceptButton : MonoBehaviour
     public void ButtonAccept()
     {
       foreach (var c in DatabaseSubstances.selectedElements[DatabaseSubstances.numberChoice])
-      {
-        c.GetComponent<ElementControl>().RemoveRotation();      
-        StartCoroutine(c.GetComponent<ElementControl>().MoveToContainer(ConstantsMiniGame1.posTo1, ConstantsMiniGame1.posTo2, ConstantsMiniGame1.posTo3, ConstantsMiniGame1.timeTo1, ConstantsMiniGame1.timeTo2, ConstantsMiniGame1.timeTo3));
-      }
+        {
+            //c.GetComponent<ElementControl>().RemoveRotation();      
+            //StartCoroutine(c.GetComponent<ElementControl>().MoveToContainer(ConstantsMiniGame1.posTo1, ConstantsMiniGame1.posTo2, ConstantsMiniGame1.posTo3, ConstantsMiniGame1.timeTo1, ConstantsMiniGame1.timeTo2, ConstantsMiniGame1.timeTo3));
+            //c.GetComponent<ElementControl>().status = ElementControl.Mode.MoveInContainer;
+            c.GetComponent<ElementControl>().Status(ElementControl.Mode.MoveInContainer) ;
+        }
         foreach (var c in DatabaseSubstances.selectedElements[DatabaseSubstances.numberChoice])
         {
             Debug.Log(c.name);
         }
-            DatabaseSubstances.numberChoice++;
+        DatabaseSubstances.numberChoice++;
         DatabaseSubstances.selectedElements.Add(DatabaseSubstances.numberChoice, new List<GameObject>());
     }
 
