@@ -1653,6 +1653,7 @@ GameObject:
   - component: {fileID: 1036141322}
   - component: {fileID: 1036141321}
   - component: {fileID: 1036141320}
+  - component: {fileID: 1036141324}
   - component: {fileID: 1036141323}
   m_Layer: 5
   m_Name: AcceptButton
@@ -1726,13 +1727,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1036141324}
+        m_TargetAssemblyTypeName: AcceptButton, Assembly-CSharp
+        m_MethodName: ButtonAccept
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1786,6 +1787,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18e1ccfdfdf31184fb286dff2f2bc776, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1036141324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036141318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7888d0a118df687418250bab4229b47d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1071892818
@@ -2221,7 +2234,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1415453332}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.24, y: -4.48, z: -90.19675}
+  m_LocalPosition: {x: 0.02, y: 3.42, z: -90.19675}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2804,7 +2817,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1727101477}
   - component: {fileID: 1727101476}
-  - component: {fileID: 1727101478}
   - component: {fileID: 1727101479}
   m_Layer: 0
   m_Name: Controllers
@@ -2843,18 +2855,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1727101478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1727101474}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75b4de7cf974a2e4ba3b6ce7abdb1efa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1727101479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2968,7 +2968,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 250
+  m_SortingOrder: 700
   m_TargetDisplay: 0
 --- !u!1 &1873964086
 GameObject:

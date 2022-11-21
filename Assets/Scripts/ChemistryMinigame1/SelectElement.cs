@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class SelectElement : MonoBehaviour, IPointerClickHandler
 {
     private bool isElementStanding=false;
-    private bool isChoiceElements = false;
+   // private bool isChoiceElements = false;
     private static int numberChoice = 0;
     private GameObject elEffect;
     private void FixedUpdate()
@@ -45,7 +45,7 @@ public class SelectElement : MonoBehaviour, IPointerClickHandler
             RemoveRotation();
             if (numberChoice == 1)
             {
-                StartCoroutine(MoveToContainer(c.pos1, c.pos2, c.pos3, c.time1, c.time2, c.time3));
+                //StartCoroutine(MoveToContainer(c.pos1, c.pos2, c.pos3, c.time1, c.time2, c.time3));
                 // StartCoroutine(MoveElement(new Vector2(0f, -2.42f), 1f));
                 RelatedElements.firstElement = gameObject;
                 //colorSwitch.SelectColor(gameObject);
@@ -54,7 +54,7 @@ public class SelectElement : MonoBehaviour, IPointerClickHandler
             {
                 elEffect = GameObject.Find("Controllers").GetComponent<GenerateEffects>().GetElectricityEffect;
                 //StartCoroutine(MoveElement(new Vector2(0f, -1f), 1f));
-                StartCoroutine(MoveToContainer(c.pos1, c.pos2, c.pos3 + new Vector2(1f, 0f), c.time1, c.time2, c.time3));
+                //StartCoroutine(MoveToContainer(c.pos1, c.pos2, c.pos3 + new Vector2(1f, 0f), c.time1, c.time2, c.time3));
                 //colorSwitch.SelectColor(gameObject);
                 Instantiate(elEffect, gameObject.transform);
                 RelatedElements.firstElement = gameObject;

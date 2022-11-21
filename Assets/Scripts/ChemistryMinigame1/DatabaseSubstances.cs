@@ -12,10 +12,9 @@ public class DatabaseSubstances : MonoBehaviour
     public static Substance[] Substances;
 
     static public List<GameObject> elementsPrefab = new List<GameObject>();
-
-    //list который хранит формулу веществ для сравнения формул составленных из элементов  с списком веществ
-    static public List<string> substancesFormula= new List<string>();
-    static public List<List<string>> selectedElements = new List<List<string>>();
+    static public Dictionary<int, List<GameObject>> selectedElements = new Dictionary<int, List<GameObject>>();
+    static public int numberChoice = 1;
+    static public int numberInContainer = -1;
 
     [Serializable]
     public class Substance
@@ -28,6 +27,7 @@ public class DatabaseSubstances : MonoBehaviour
     private void Awake()
     {
         Substances = SubstancesSerializable;
+        selectedElements.Add(numberChoice, new List<GameObject>());
     }
 
   

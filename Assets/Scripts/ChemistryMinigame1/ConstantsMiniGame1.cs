@@ -27,14 +27,19 @@ public class ConstantsMiniGame1 :MonoBehaviour
     public const float downPositionFluctuation = -4.55f;
     public const float timeFluctuation = 1.5f;
 
-    //MoveSelectedElement
-    public Vector2 pos1= new Vector2 (0f, -1.56f);
-    public Vector2 pos2 = new Vector2(0f, -4.48f);
-    public Vector2 pos3 = new Vector2(-8.24f, -4.48f);
-    public float time1 = 1.5f;
-    public float time2 = 1f;
-    public float time3 = 4f;
-
-    static public int numberChoice =0; 
+    //MoveToContainer
+    static public Vector2 posTo1= new Vector2 (0f, -1.56f);
+    static public Vector2 posTo2 = new Vector2(0f, -4.3f);
+    static public Vector2 posTo3 = new Vector2(-8.24f, -4.3f);
+    static public float timeTo1 = 1.5f;
+    static public float timeTo2 = 1f;
+    static public float timeTo3 = 2f;
+    //MoveFromContainer
+    static public Vector2 posFrom1 = new Vector2(0f, -6f);
+    static public Vector2 posFrom2 = new Vector2(0f, 6f);
+    static public Vector2 posFrom3 = new Vector2(0f, 3.42f);
+    static public float timeFrom1 = 1.5f;
+    static public float timeFrom2 = 1f;
+    static public float timeFrom3 = 2f;
 
 }
