@@ -129,9 +129,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 5863020459245054966}
+  elecEffect: {fileID: 8048666535188234160, guid: 754156af1ed955247977cd25527ec2f6, type: 3}
+  elecEffectSphere: {fileID: 7773450177387971655, guid: c402fdeab8b24b746b0a96dcc194afa6, type: 3}
   rb: {fileID: 5863020459245054961}
   nameElements: Na
-  isSelectElement: 0
-  isInContainer: 0
-  numberChoice: 0
-  numberInContainer: 0
+  indexInContainer: 0
+  status: 0
