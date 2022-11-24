@@ -14,50 +14,53 @@ public class ElementControl : MonoBehaviour, IPointerClickHandler
     private Vector2 direction;
     private System.Random rnd;
     public string nameElements;
-    public bool isSelectElement = false;
-    public bool isInContainer = false;
     public int indexInContainer = 0;
-    public Mode status=Mode.Move;
+    public Mode status=Mode.MoveUnselect;
 
     void Start()
     {
         rnd = new System.Random();
         direction.x = (float)rnd.NextDouble() * (2 + 1) - 1;
         direction.y = (float)rnd.NextDouble() * (2 + 1) - 1;
-        Status(status);
-
     }
 
 
     void FixedUpdate()
     {
-        if (status==Mode.Move)
+        if (status==Mode.MoveUnselect|| status == Mode.MoveSelect)
             rb.MovePosition(rb.position + direction.normalized * 3f * Time.fixedDeltaTime);
     }
     public enum Mode 
     {
-        Move,
+        MoveUnselect,
         MoveInContainer,
         StaticFluctuations,
+        MoveSelect,
+        MoveFromContainer,
+        MoveLeftOffset
 
     }
-    public void Status (Mode mode)
+    public void PerformStatus (Mode mode)
     {
-        switch(mode)
+        switch (mode)
         {
-            case Mode.Move:
-                rb.MovePosition(rb.position + direction.normalized * 3f * Time.fixedDeltaTime);
+            case Mode.MoveSelect:
+                AddElemSelect();
                 break;
             case Mode.MoveInContainer:
-                RemoveRotation();
                 StartCoroutine(MoveToContainer(ConstantsMiniGame1.posTo1, ConstantsMiniGame1.posTo2, ConstantsMiniGame1.posTo3, ConstantsMiniGame1.timeTo1, ConstantsMiniGame1.timeTo2, ConstantsMiniGame1.timeTo3));
-                status = Mode.StaticFluctuations;
                 break;
             case Mode.StaticFluctuations:
-              StartCoroutine(Fluc());
+                StartCoroutine(Fluc());
                 break;
-
+            case Mode.MoveFromContainer:
+                StartCoroutine(MoveFromContainer(ConstantsMiniGame1.posFrom1, ConstantsMiniGame1.posFrom2, ConstantsMiniGame1.posFrom3, ConstantsMiniGame1.timeFrom1, ConstantsMiniGame1.timeFrom2));
+                break;
+            case Mode.MoveLeftOffset:
+                StartCoroutine(OffsetLeftElem(gameObject.transform.position, 1f));
+                break;
         }
+ 
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -87,43 +90,37 @@ public class ElementControl : MonoBehaviour, IPointerClickHandler
 
 
     public void OnPointerClick(PointerEventData eventData)
-    {
-        
-        if (isInContainer == false)
+    {  
+        if (status != Mode.StaticFluctuations)
         {
-            if (isSelectElement == false)
+            if (status == Mode.MoveUnselect)
             {
-                AddElemSelect();
-                isSelectElement = true;
+                status = Mode.MoveSelect;
+                PerformStatus(status);
             }
             else
             {
                 DeleteElemSelect();
-                isSelectElement = false;
+                status = Mode.MoveUnselect;
             }
         }
-        else 
-        {
-            isInContainer = false;
-        }
-           
-
+        else
+        {         
+            status = Mode.MoveFromContainer;
+        }   
     }
 
-    public void OffsetLeft()
+    public void OffsetLeftELements()
     {
-        for (int i = 1; i < DatabaseSubstances.numberChoice; i++)
+        for (int i = 1; i <= DatabaseSubstances.numberChoice; i++)
         {
             foreach (var c in DatabaseSubstances.selectedElements[i])
             {
-                if (c.GetComponent<ElementControl>().indexInContainer >= DatabaseSubstances.numbersInContainer - indexInContainer - 1)
+                if (c.GetComponent<ElementControl>().indexInContainer >indexInContainer&& c.GetComponent<ElementControl>().status!=Mode.MoveSelect)
                 {
-                    Debug.Log(c.name);
-                    //StartCoroutine(c.GetComponent<ElementControl>().OffsetLeftElem(c.GetComponent<GameObject>().transform.position,1f));
-                    c.GetComponent<ElementControl>().indexInContainer--;
-
+                    c.GetComponent<ElementControl>().status = Mode.MoveLeftOffset;
+                    c.GetComponent<ElementControl>().indexInContainer--; 
                 }
-
             }
         }
     }
@@ -138,26 +135,6 @@ public class ElementControl : MonoBehaviour, IPointerClickHandler
     }
 
 
-    //делает колебания у объектов, когда они в контейнере
-    //public IEnumerator Startfluctuations()
-    //{
-
-    //    //while (isSelectElement == true && isInContainer == true)
-    //    if (isSelectElement == true && isInContainer == true)
-    //    {
-
-    //        yield return StartCoroutine(ChangeOscillation(transform, new Vector2(gameObject.transform.position.x, ConstantsMiniGame1.upPositionFluctuation), new Vector2(gameObject.transform.position.x, ConstantsMiniGame1.downPositionFluctuation), ConstantsMiniGame1.timeFluctuation));
-    //        yield return StartCoroutine(ChangeOscillation(transform, new Vector2(gameObject.transform.position.x, ConstantsMiniGame1.downPositionFluctuation), new Vector2(gameObject.transform.position.x, ConstantsMiniGame1.upPositionFluctuation), ConstantsMiniGame1.timeFluctuation));
-    //        //if (isInContainer == false)
-    //        //{         
-    //        //    yield return MoveFromContainer(ConstantsMiniGame1.posFrom1, ConstantsMiniGame1.posFrom2, ConstantsMiniGame1.posFrom3, ConstantsMiniGame1.timeFrom1, ConstantsMiniGame1.timeFrom2);
-
-    //        //}
-    //        //onOffsetLeft.Invoke();
-    //        //DeleteElemSelect();
-    //    }
-        
-    //} 
 //Взаимодействие с базой выбранных элементов
     public void AddElemSelect()
     {
@@ -167,60 +144,70 @@ public class ElementControl : MonoBehaviour, IPointerClickHandler
     }
     public void DeleteElemSelect()
     {
-        for (int i = 1; i < DatabaseSubstances.numberChoice; i++)
+        DatabaseSubstances.numbersInContainer--;
+        for (int i = 1; i <= DatabaseSubstances.numberChoice; i++)
         {
             DatabaseSubstances.selectedElements[i].Remove(gameObject);
-            DatabaseSubstances.numbersInContainer--;
-            indexInContainer = 0;
         }
-        
+
+            for (int i = 1; i <= DatabaseSubstances.numberChoice; i++)
+            {
+                foreach (var c in DatabaseSubstances.selectedElements[i])
+                {
+                    if (c.GetComponent<ElementControl>().indexInContainer > indexInContainer && c.GetComponent<ElementControl>().status==Mode.MoveSelect)
+                    {
+                        c.GetComponent<ElementControl>().indexInContainer--;
+                    }
+                }
+            }
     }
 
 //перемещает элементы в контейнер 
     public IEnumerator MoveToContainer(Vector2 pos1, Vector2 pos2, Vector2 pos3, float time1, float time2, float time3)
     {
-        if (isInContainer == false)
-        {
-            yield return StartCoroutine(MoveElement(pos1, time1));
-            yield return StartCoroutine(MoveElement(pos2, time2));
-            yield return StartCoroutine(MoveElement(pos3 + new Vector2(indexInContainer, 0f), time3));
-            yield return isInContainer = true;
-            yield return AcceptButton.isButtonAccept = false;
-            Status(Mode.StaticFluctuations);
-        }
+        RemoveRotation();
+        yield return StartCoroutine(MoveElement(pos1, time1));
+        yield return StartCoroutine(MoveElement(pos2, time2));
+        yield return StartCoroutine(MoveElement(pos3 + new Vector2(indexInContainer, 0f), time3));
+        yield return status = Mode.StaticFluctuations;
+        yield return AcceptButton.isButtonAccept = false;
+        PerformStatus(status);
     }
  //убираем элемент из контейнера
     public IEnumerator MoveFromContainer(Vector2 pos1, Vector2 pos2, Vector2 pos3, float time1, float time2)
     {
+        DeleteElemSelect();
         yield return StartCoroutine(MoveElement(pos1+new Vector2(gameObject.transform.position.x,0f), time1));
         gameObject.transform.position = pos2;
         yield return StartCoroutine(MoveElement(pos3, time2));
-        yield return isSelectElement == false;
         yield return rb.bodyType = RigidbodyType2D.Dynamic;
-        DeleteElemSelect();
-        status = Mode.Move;
+        status = Mode.MoveUnselect;
     }
     public IEnumerator Fluc ()
     {
-        if (isSelectElement == true && isInContainer == true)
-        {
-            while (isSelectElement == true && isInContainer == true)
+       if(status!=Mode.MoveInContainer||status!=Mode.MoveLeftOffset)
+       {
+            while (status!=Mode.MoveFromContainer && status != Mode.MoveLeftOffset)
             {
                 yield return StartCoroutine(MoveElement(gameObject.transform.position + new Vector3(0f, -0.2f, 0f), 1f));
                 yield return StartCoroutine(MoveElement(gameObject.transform.position - new Vector3(0f, -0.2f, 0f), 1f));
-                if (isInContainer == false)
-                {
-                    
-                    yield return MoveFromContainer(ConstantsMiniGame1.posFrom1, ConstantsMiniGame1.posFrom2, ConstantsMiniGame1.posFrom3, ConstantsMiniGame1.timeFrom1, ConstantsMiniGame1.timeFrom2);
-                }
             }
-        }
+            if (status == Mode.MoveFromContainer)
+            {
+                PerformStatus(status);
+                OffsetLeftELements();
+            } 
+            else
+                PerformStatus(status);
+       }
     }
 
-    //public IEnumerator OffsetLeftElem(Vector2 pos,float time)
-    //{
-    //    yield return StartCoroutine(MoveElement(pos-new Vector2(1f,0f), time));
-    //}
+    public IEnumerator OffsetLeftElem(Vector2 pos,float time)
+    {
+        yield return StartCoroutine(MoveElement(pos-new Vector2(1f,0f), time));
+        yield return status = Mode.StaticFluctuations;
+        PerformStatus(status);
+    }
 
     IEnumerator MoveElement(Vector2 endPos, float time)
     {
@@ -251,7 +238,6 @@ public class ElementControl : MonoBehaviour, IPointerClickHandler
 
     private IEnumerator GradualChangeBlack(GameObject element)
     {
-       
         float x = 1;
         while (x > 0)
         {
@@ -259,7 +245,6 @@ public class ElementControl : MonoBehaviour, IPointerClickHandler
             x -= 0.01f;
             yield return null;
         }
-
     }
     private IEnumerator GradualChangeOrigin(GameObject element)
     {
@@ -270,6 +255,5 @@ public class ElementControl : MonoBehaviour, IPointerClickHandler
             x += 0.01f;
             yield return null;
         }
-
     }
 }

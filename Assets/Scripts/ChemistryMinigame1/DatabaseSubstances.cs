@@ -26,12 +26,7 @@ public class DatabaseSubstances : MonoBehaviour
 
     private void Awake()
     {
-        
         Substances = SubstancesSerializable;
         selectedElements.Add(numberChoice, new List<GameObject>());
     }
-
-  
-
-
 }
