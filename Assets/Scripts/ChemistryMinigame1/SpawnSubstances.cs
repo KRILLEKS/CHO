@@ -14,7 +14,6 @@ public class SpawnSubstances : MonoBehaviour
 
     void Start()
     {
-
         foreach (var c in DatabaseSubstances.Substances)
         {
             substanceText.text = c.nameSubstance;

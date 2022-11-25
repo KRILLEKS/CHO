@@ -27,7 +27,7 @@ public class ColorSwitchButton : MonoBehaviour, IPointerEnterHandler,IPointerExi
     // Start is called before the first frame update
     void Start()
     {
-        colorBut = this.gameObject.GetComponent<Image>();
+        colorBut = gameObject.GetComponent<Image>();
         old = colorBut.color;
     }
    

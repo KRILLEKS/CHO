@@ -24,22 +24,7 @@ public class ElementControl : MonoBehaviour, IPointerClickHandler
     private GameObject linkElement;
     private GameObject elSphere;
     private GameObject el;
-    void Start()
-    {
-        rnd = new System.Random();
-        direction.x = (float)rnd.NextDouble() * (2 + 1) - 1;
-        direction.y = (float)rnd.NextDouble() * (2 + 1) - 1;
-    }
-
-
-    void FixedUpdate()
-    {
-        if(linkElement!=null)
-            FollowingElec(linkElement);
-        if (status==Mode.MoveUnselect|| status == Mode.MoveSelect)
-            rb.MovePosition(rb.position + direction.normalized * 3f * Time.fixedDeltaTime);
-    }
-    public enum Mode 
+    public enum Mode
     {
         MoveUnselect,
         MoveInContainer,
@@ -49,7 +34,7 @@ public class ElementControl : MonoBehaviour, IPointerClickHandler
         MoveLeftOffset
 
     }
-    public void PerformStatus (Mode mode)
+    public void PerformStatus(Mode mode)
     {
         switch (mode)
         {
@@ -60,7 +45,7 @@ public class ElementControl : MonoBehaviour, IPointerClickHandler
                 StartCoroutine(MoveToContainer(ConstantsMiniGame1.posTo1, ConstantsMiniGame1.posTo2, ConstantsMiniGame1.posTo3, ConstantsMiniGame1.timeTo1, ConstantsMiniGame1.timeTo2, ConstantsMiniGame1.timeTo3));
                 break;
             case Mode.StaticFluctuations:
-                StartCoroutine(Fluc());
+                StartCoroutine(Fluctuation());
                 break;
             case Mode.MoveFromContainer:
                 StartCoroutine(MoveFromContainer(ConstantsMiniGame1.posFrom1, ConstantsMiniGame1.posFrom2, ConstantsMiniGame1.posFrom3, ConstantsMiniGame1.timeFrom1, ConstantsMiniGame1.timeFrom2));
@@ -69,9 +54,8 @@ public class ElementControl : MonoBehaviour, IPointerClickHandler
                 StartCoroutine(OffsetLeftElem(gameObject.transform.position, 1f));
                 break;
         }
- 
-    }
 
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         switch (collision.gameObject.name)
@@ -96,10 +80,8 @@ public class ElementControl : MonoBehaviour, IPointerClickHandler
                 break;
         }
     }
-
-
     public void OnPointerClick(PointerEventData eventData)
-    {  
+    {
         if (status != Mode.StaticFluctuations)
         {
             if (status == Mode.MoveUnselect)
@@ -114,38 +96,52 @@ public class ElementControl : MonoBehaviour, IPointerClickHandler
             }
         }
         else
-        {         
-            status = Mode.MoveFromContainer;
-        }   
-    }
-
-    public void OffsetLeftELements()
-    {
-        for (int i = 1; i <= DatabaseSubstances.numberChoice; i++)
         {
-            foreach (var c in DatabaseSubstances.selectedElements[i])
+            status = Mode.MoveFromContainer;
+        }
+    }
+    private void Start()
+    {
+        rnd = new System.Random();
+        direction.x = (float)rnd.NextDouble() * (2 + 1) - 1;
+        direction.y = (float)rnd.NextDouble() * (2 + 1) - 1;
+    }
+    private void FixedUpdate()
+    {
+        if(linkElement!=null)
+            FollowingElec(linkElement);
+        if (status==Mode.MoveUnselect|| status == Mode.MoveSelect)
+            rb.MovePosition(rb.position + direction.normalized * 3f * Time.fixedDeltaTime);
+    } 
+
+
+
+//ScriptedMove
+    private void RemoveLink(GameObject c)
+    {
+        if (numberChoiceLink == c.GetComponent<ElementControl>().numberChoiceLink && (indexInContainer - c.GetComponent<ElementControl>().indexInContainer == 1 || indexInContainer - c.GetComponent<ElementControl>().indexInContainer == 0))
+        {
+            if (indexInContainer - c.GetComponent<ElementControl>().indexInContainer == 0)
             {
-                if (c.GetComponent<ElementControl>().indexInContainer >indexInContainer&& c.GetComponent<ElementControl>().status!=Mode.MoveSelect)
-                {
-                    c.GetComponent<ElementControl>().status = Mode.MoveLeftOffset;
-                    c.GetComponent<ElementControl>().indexInContainer--; 
-                }
+                Debug.Log(c.GetComponent<ElementControl>().linkElement);
+                c.GetComponent<ElementControl>().linkElement = linkElement;
+                Debug.Log(c.GetComponent<ElementControl>().linkElement);
+                linkElement = null;
+            }
+            if (c.GetComponent<ElementControl>().linkElement == null)
+            {
+                c.GetComponent<ElementControl>().RemoveRotation();
+                Destroy(c.GetComponent<ElementControl>().el);
             }
         }
     }
-
-//ScriptedMove
-
-    //делает объекты статичными,что их не могли сбить другие объекты, а также отменяет вращение объекта
-    public void RemoveRotation()
+    private void  RemoveRotation()
     {
         rb.bodyType = RigidbodyType2D.Static;
         gameObject.transform.rotation = ConstantsMiniGame1.rotationElementZero;
     }
 
-
-//Взаимодействие с базой выбранных элементов
-    public void AddElemSelect()
+    private void AddElemSelect()
     {
         DatabaseSubstances.selectedElements[DatabaseSubstances.numberChoice].Add(gameObject);
         DatabaseSubstances.numbersInContainer++;
@@ -163,7 +159,7 @@ public class ElementControl : MonoBehaviour, IPointerClickHandler
         }
         elSphere=Instantiate(elecEffectSphere, gameObject.transform);
     }
-    public void DeleteElemSelect()
+    private void DeleteElemSelect()
     {
         DatabaseSubstances.numbersInContainer--;
         for (int i = 1; i <= DatabaseSubstances.numberChoice; i++)
@@ -181,14 +177,40 @@ public class ElementControl : MonoBehaviour, IPointerClickHandler
                 }
             }
         }
-        numberChoiceLink = default(int);
+        //numberChoiceLink = default(int);
         Destroy(elSphere);
     }
-
-//перемещает элементы в контейнер 
-    public IEnumerator MoveToContainer(Vector2 pos1, Vector2 pos2, Vector2 pos3, float time1, float time2, float time3)
+    private void FollowingElec(GameObject linkElement)
     {
-        //RemoveRotation();
+        //if (linkElement.GetComponent<ElementControl>().numberChoiceLink == numberChoiceLink)
+        // {
+        Vector2 dirBetweenElements;
+        dirBetweenElements = gameObject.transform.position - linkElement.transform.position;
+        var angle = Mathf.Atan2(dirBetweenElements.y, dirBetweenElements.x) * Mathf.Rad2Deg;
+        gameObject.transform.rotation = Quaternion.Euler(0, 0, angle);
+        linkElement.transform.rotation = Quaternion.Euler(0, 0, angle);
+        // }
+    }
+    private void OffsetLeftELements()
+    {
+        for (int i = 1; i <= DatabaseSubstances.numberChoice; i++)
+        {
+            foreach (var c in DatabaseSubstances.selectedElements[i])
+            {
+                if (c.GetComponent<ElementControl>().indexInContainer > indexInContainer && c.GetComponent<ElementControl>().status != Mode.MoveSelect)
+                {
+                    c.GetComponent<ElementControl>().status = Mode.MoveLeftOffset;
+                    c.GetComponent<ElementControl>().indexInContainer--;
+                }
+                RemoveLink(c);
+            }
+        }
+    }
+    // корутины перемещения
+    private IEnumerator MoveToContainer(Vector2 pos1, Vector2 pos2, Vector2 pos3, float time1, float time2, float time3)
+    {
+        if(DatabaseSubstances.selectedElements[DatabaseSubstances.numberChoice].Count==1)
+        RemoveRotation();
         yield return StartCoroutine(MoveElement(pos1, time1+indexInContainer));
         yield return StartCoroutine(MoveElement(pos2, time2));
         Destroy(elSphere);
@@ -199,7 +221,7 @@ public class ElementControl : MonoBehaviour, IPointerClickHandler
         {
             foreach (var c in DatabaseSubstances.selectedElements[i])
             {
-                if (indexInContainer - c.GetComponent<ElementControl>().indexInContainer == 1)
+                if (indexInContainer - c.GetComponent<ElementControl>().indexInContainer == 1 && numberChoiceLink==c.GetComponent<ElementControl>().numberChoiceLink)
                 {
                     linkElement = c.gameObject;
                     el=Instantiate(elecEffect, gameObject.transform);
@@ -208,8 +230,7 @@ public class ElementControl : MonoBehaviour, IPointerClickHandler
         }
         PerformStatus(status);
     }
- //убираем элемент из контейнера
-    public IEnumerator MoveFromContainer(Vector2 pos1, Vector2 pos2, Vector2 pos3, float time1, float time2)
+    private IEnumerator MoveFromContainer(Vector2 pos1, Vector2 pos2, Vector2 pos3, float time1, float time2)
     {
         DeleteElemSelect();
         Destroy(el);
@@ -219,7 +240,7 @@ public class ElementControl : MonoBehaviour, IPointerClickHandler
         yield return rb.bodyType = RigidbodyType2D.Dynamic;
         status = Mode.MoveUnselect;
     }
-    public IEnumerator Fluc ()
+    private IEnumerator Fluctuation ()
     {
        if(status!=Mode.MoveInContainer||status!=Mode.MoveLeftOffset)
        {
@@ -237,19 +258,17 @@ public class ElementControl : MonoBehaviour, IPointerClickHandler
                 PerformStatus(status);
        }
     }
-
-    public IEnumerator OffsetLeftElem(Vector2 pos,float time)
+    private IEnumerator OffsetLeftElem(Vector2 pos,float time)
     {
         yield return StartCoroutine(MoveElement(pos-new Vector2(1f,0f), time));
         yield return status = Mode.StaticFluctuations;
         PerformStatus(status);
     }
-
-    IEnumerator MoveElement(Vector2 endPos, float time)
+    private IEnumerator MoveElement(Vector2 endPos, float time)
     {
-        yield return StartCoroutine(ChangeOscillation(transform, gameObject.transform.position, endPos, time));
+        yield return StartCoroutine(Moving(transform, gameObject.transform.position, endPos, time));
     }
-    IEnumerator ChangeOscillation(Transform thisTransform, Vector2 startPos, Vector2 endPos, float time)
+    private IEnumerator Moving(Transform thisTransform, Vector2 startPos, Vector2 endPos, float time)
     {
         float i = 0.0f;
         float rate = 1.0f / time;
@@ -261,17 +280,6 @@ public class ElementControl : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void FollowingElec(GameObject linkElement)
-    {
-        if (linkElement.GetComponent<ElementControl>().numberChoiceLink == numberChoiceLink)
-        {
-            Vector2 dirBetweenElements;
-            dirBetweenElements = gameObject.transform.position - linkElement.transform.position;
-            var angle = Mathf.Atan2(dirBetweenElements.y, dirBetweenElements.x) * Mathf.Rad2Deg;
-            gameObject.transform.rotation = Quaternion.Euler(0, 0, angle);
-            linkElement.transform.rotation = Quaternion.Euler(0, 0, angle);
-        }
-    }
    // //colorswitch
     //private void SelectColor(GameObject element)
     //{
