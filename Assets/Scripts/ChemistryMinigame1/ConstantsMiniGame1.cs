@@ -41,5 +41,10 @@ public class ConstantsMiniGame1 :MonoBehaviour
     static public float timeFrom1 = 1.5f;
     static public float timeFrom2 = 1f;
     static public float timeFrom3 = 2f;
+//EndLevel
+    public const float openEndLevelWindowX = 0;
+    public const float endLevelWindowY = 0;
+    public const float endLevelWindowZ = 0;
+    public const float durationEndLevelWindow = 2f;
 
 }

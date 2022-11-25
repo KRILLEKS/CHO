@@ -11,7 +11,7 @@ public class OpenList : MonoBehaviour
 
     public void ViewList()
     {
-        this.gameObject.SetActive(false);
+        gameObject.SetActive(false);
         ScrollView.transform.DOMove(new Vector3(ConstantsMiniGame1.openListX, ConstantsMiniGame1.listY, ConstantsMiniGame1.listZ), ConstantsMiniGame1.durationList, false);
     }
 }

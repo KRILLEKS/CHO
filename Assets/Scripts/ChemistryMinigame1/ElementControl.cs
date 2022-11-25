@@ -193,14 +193,18 @@ public class ElementControl : MonoBehaviour, IPointerClickHandler
     }
     private void OffsetLeftELements()
     {
+        DeleteElemSelect();
         for (int i = 1; i <= DatabaseSubstances.numberChoice; i++)
         {
             foreach (var c in DatabaseSubstances.selectedElements[i])
-            {
+            {             
+                Debug.Log(c.name);
+                Debug.Log(c.GetComponent<ElementControl>().numberChoiceLink);
                 if (c.GetComponent<ElementControl>().indexInContainer > indexInContainer && c.GetComponent<ElementControl>().status != Mode.MoveSelect)
                 {
                     c.GetComponent<ElementControl>().status = Mode.MoveLeftOffset;
                     c.GetComponent<ElementControl>().indexInContainer--;
+
                 }
                 RemoveLink(c);
             }
@@ -232,7 +236,6 @@ public class ElementControl : MonoBehaviour, IPointerClickHandler
     }
     private IEnumerator MoveFromContainer(Vector2 pos1, Vector2 pos2, Vector2 pos3, float time1, float time2)
     {
-        DeleteElemSelect();
         Destroy(el);
         yield return StartCoroutine(MoveElement(pos1+new Vector2(gameObject.transform.position.x,0f), time1));
         gameObject.transform.position = pos2;
