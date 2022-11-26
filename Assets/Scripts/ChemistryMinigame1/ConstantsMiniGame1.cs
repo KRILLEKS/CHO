@@ -5,10 +5,10 @@ using UnityEngine;
 public class ConstantsMiniGame1 :MonoBehaviour 
 {
 //OpenList
-    public const float openListX = 5.5f;
-    public const float closeListX = 12.5f;
-    public const float listY = 0;
-    public const float listZ = 0;
+    static public Vector3 posOpenList = new Vector3(5.5f, 0f, 0f);
+    static public Vector3 posCloseList = new Vector3(12.5f, 0f, 0f);
+    static public Vector3 posCloseListButton = new Vector3(10.02f, 4.02f, 0f);
+    static public Vector3 posOpenListButton = new Vector3(7.98f, 4.02f, 0f);
     public const float durationList = 1.2f;
 
 //SelectElement
@@ -29,11 +29,14 @@ public class ConstantsMiniGame1 :MonoBehaviour
 
 //MoveToContainer
     static public Vector2 posTo1= new Vector2 (0f, -1.56f);
-    static public Vector2 posTo2 = new Vector2(0f, -4.3f);
-    static public Vector2 posTo3 = new Vector2(-8.24f, -4.3f);
+    static public Vector2 posTo2 = new Vector2(0f, -3.52f);
+    static public Vector2 posTo3 = new Vector2(0f, -4.3f);
+    static public Vector2 posTo4 = new Vector2(-8.24f, -4.3f);
+
     static public float timeTo1 = 1.5f;
-    static public float timeTo2 = 1f;
-    static public float timeTo3 = 2f;
+    static public float timeTo2 = 0.5f;
+    static public float timeTo3 = 1f;
+    static public float timeTo4 = 2f;
 //MoveFromContainer
     static public Vector2 posFrom1 = new Vector2(0f, -6f);
     static public Vector2 posFrom2 = new Vector2(0f, 6f);
@@ -46,5 +49,10 @@ public class ConstantsMiniGame1 :MonoBehaviour
     public const float endLevelWindowY = 0;
     public const float endLevelWindowZ = 0;
     public const float durationEndLevelWindow = 2f;
-
+//AlertWindow
+    static public Vector3 posOpenAlertWindow = new Vector3(5.94f, -2.18f, 0f);
+    static public Vector3 posCloseAlertWindow = new Vector3(11.78f, -2.18f, 0f);
+    static public Vector3 posCloseAlertButton = new Vector3(11.12f, -3.52f, 0f);
+    static public Vector3 posOpenAlertButton = new Vector3(7.12f, -3.52f, 0f);
+    static public float durationAlertWindow = 2f;
 }

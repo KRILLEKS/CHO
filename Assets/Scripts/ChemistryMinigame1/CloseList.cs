@@ -13,7 +13,7 @@ public class CloseList : MonoBehaviour
 
     public void ReturnList()
     {
-        ScrollView.transform.DOMove(new Vector3(ConstantsMiniGame1.closeListX, ConstantsMiniGame1.listY, ConstantsMiniGame1.listZ), ConstantsMiniGame1.durationList, false);
+        ScrollView.transform.DOMove(ConstantsMiniGame1.posCloseList, ConstantsMiniGame1.durationList, false);
         StartCoroutine(DelayButtonView());
     }
     IEnumerator DelayButtonView()

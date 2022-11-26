@@ -7,11 +7,14 @@ public class OpenList : MonoBehaviour
 {
     [SerializeField]
     GameObject ScrollView;
+    [SerializeField]
+    GameObject listOpenButton;
 
 
     public void ViewList()
     {
-        gameObject.SetActive(false);
-        ScrollView.transform.DOMove(new Vector3(ConstantsMiniGame1.openListX, ConstantsMiniGame1.listY, ConstantsMiniGame1.listZ), ConstantsMiniGame1.durationList, false);
+        listOpenButton.SetActive(false);
+        ScrollView.transform.DOMove(ConstantsMiniGame1.posOpenList, ConstantsMiniGame1.durationList, false);
     }
+
 }
