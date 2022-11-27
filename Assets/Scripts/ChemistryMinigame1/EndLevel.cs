@@ -1,10 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class EndLevel : MonoBehaviour
 {
-    public void CountingResult()
+    static public EndLevel instance = null;
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+    }
+    public async Task CountingResult()
     {
         foreach (var c in DatabaseSubstances.Substances)
         {
@@ -27,6 +34,7 @@ public class EndLevel : MonoBehaviour
                 }
                 Debug.Log(DatabaseSubstances.instance.number—orrectAnswers);
             }
+            await Task.Yield();
         }
     }
 

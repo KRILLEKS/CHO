@@ -1805,6 +1805,9 @@ MonoBehaviour:
     elements:
     - Prefab: {fileID: 5863020459245054966, guid: cb0602b3b705a5e40a63cef0d66e7b1e, type: 3}
     - Prefab: {fileID: 5970680137252928328, guid: fbc051e901e7b9c47b8475f68156b2ca, type: 3}
+  numberChoice: 1
+  numbersInContainer: -1
+  "number\u0421orrectAnswers": 0
 --- !u!4 &462774257
 Transform:
   m_ObjectHideFlags: 0
@@ -3866,7 +3869,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1078453824}
         m_TargetAssemblyTypeName: OpenEndLevelWindow, Assembly-CSharp
-        m_MethodName: ViewEndLevelWindow
+        m_MethodName: PrintText
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3878,19 +3881,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1078453824}
         m_TargetAssemblyTypeName: OpenEndLevelWindow, Assembly-CSharp
-        m_MethodName: PrintText
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1078453825}
-        m_TargetAssemblyTypeName: EndLevel, Assembly-CSharp
-        m_MethodName: CountingResult
+        m_MethodName: ViewEndLevelWindow
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

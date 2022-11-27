@@ -25,6 +25,7 @@ public class OpenEndLevelWindow : MonoBehaviour
     public async void PrintText()
     {
         mainT = "Колличество правильных ответов:";
+        await EndLevel.instance.CountingResult();
         trueT = DatabaseSubstances.instance.numberСorrectAnswers + " из " + (float)DatabaseSubstances.Substances.Length;
         await WriteTextDelay(mainT, mainText, 2f);
         await WriteTextDelay(trueT, numCompletedText, 2f);
