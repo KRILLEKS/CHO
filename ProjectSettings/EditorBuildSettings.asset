@@ -12,11 +12,11 @@ EditorBuildSettings:
     path: Assets/Scenes/LevelTracker.unity
     guid: 6cc5779c0c7429f41ab07bb32ec039c8
   - enabled: 1
+    path: Assets/Scenes/ChemistryMinigame1.unity
+    guid: f742619ef13a529498e7ffe1503c20e0
+  - enabled: 1
     path: Assets/Scenes/ChemistryMinigame2.unity
     guid: dadbe2a970680914e88c320f61e3dcf4
-  - enabled: 1
-    path: Assets/Scenes/ChemicalGame1.unity
-    guid: 3fc8acdd13e6c734bafef6554d6fdbcd
   - enabled: 1
     path: Assets/Scenes/TransitionScene.unity
     guid: ac41edd03088d7f4fac9b4664df30b5a

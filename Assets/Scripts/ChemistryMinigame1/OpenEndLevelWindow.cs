@@ -19,20 +19,22 @@ public class OpenEndLevelWindow : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI percentCompletedText;
 
-    private float countTrue = 8;
-    private float countAllSub = 15;
-    private int per = 100;
     private string mainT;
     private string trueT;
 
     public async void PrintText()
     {
         mainT = " ÓÎÎË˜ÂÒÚ‚Ó Ô‡‚ËÎ¸Ì˚ı ÓÚ‚ÂÚÓ‚:";
-        trueT = countTrue + " ËÁ " + countAllSub;
-        Debug.Log(per);
+        trueT = DatabaseSubstances.instance.number—orrectAnswers + " ËÁ " + (float)DatabaseSubstances.Substances.Length;
         await WriteTextDelay(mainT, mainText, 2f);
         await WriteTextDelay(trueT, numCompletedText, 2f);
-        await IncreasePercentText(percentCompletedText, (int)Math.Round(countTrue / countAllSub * 100), 0.03f, 0.05f, 0.085f, 0.8f);
+        if((int)Math.Round((float)(DatabaseSubstances.instance.number—orrectAnswers) / (float)DatabaseSubstances.Substances.Length * 100) > DatabaseSubstances.resultForTransfer)
+            DatabaseSubstances.resultForTransfer = (int)Math.Round((float)(DatabaseSubstances.instance.number—orrectAnswers) / (float)DatabaseSubstances.Substances.Length * 100);
+        if (DatabaseSubstances.instance.number—orrectAnswers != 0)
+        {
+            await IncreasePercentText(percentCompletedText, (int)Math.Round((float)(DatabaseSubstances.instance.number—orrectAnswers) / (float)DatabaseSubstances.Substances.Length * 100), 0.03f, 0.05f, 0.085f, 0.8f);
+        }
+        else percentCompletedText.text = 0 + "%";
     }
     private async Task IncreasePercentText(TextMeshProUGUI textMesh, int per, float duration1, float duration2, float duration3, float duration4)
     {

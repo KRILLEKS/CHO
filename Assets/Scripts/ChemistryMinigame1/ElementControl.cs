@@ -163,13 +163,13 @@ public class ElementControl : MonoBehaviour, IPointerClickHandler
 
     private void AddElemSelect()
     {
-        DatabaseSubstances.selectedElements[DatabaseSubstances.numberChoice].Add(gameObject);
-        DatabaseSubstances.numbersInContainer++;
-        numberChoiceLink = DatabaseSubstances.numberChoice;
-        indexInContainer = DatabaseSubstances.numbersInContainer;
-        for (int i = 1; i <= DatabaseSubstances.numberChoice; i++)
+        DatabaseSubstances.instance.selectedElements[DatabaseSubstances.instance.numberChoice].Add(gameObject);
+        DatabaseSubstances.instance.numbersInContainer++;
+        numberChoiceLink = DatabaseSubstances.instance.numberChoice;
+        indexInContainer = DatabaseSubstances.instance.numbersInContainer;
+        for (int i = 1; i <= DatabaseSubstances.instance.numberChoice; i++)
         {
-            foreach (var c in DatabaseSubstances.selectedElements[i])
+            foreach (var c in DatabaseSubstances.instance.selectedElements[i])
             {
                 if (indexInContainer - c.GetComponent<ElementControl>().indexInContainer == 1 &&numberChoiceLink== c.GetComponent<ElementControl>().numberChoiceLink)
                 {
@@ -181,15 +181,15 @@ public class ElementControl : MonoBehaviour, IPointerClickHandler
     }
     private void DeleteElemSelect()
     {
-        DatabaseSubstances.numbersInContainer--;
-        for (int i = 1; i <= DatabaseSubstances.numberChoice; i++)
+        DatabaseSubstances.instance.numbersInContainer--;
+        for (int i = 1; i <= DatabaseSubstances.instance.numberChoice; i++)
         {
-            DatabaseSubstances.selectedElements[i].Remove(gameObject);
+            DatabaseSubstances.instance.selectedElements[i].Remove(gameObject);
         }
 
-        for (int i = 1; i <= DatabaseSubstances.numberChoice; i++)
+        for (int i = 1; i <= DatabaseSubstances.instance.numberChoice; i++)
         {
-            foreach (var c in DatabaseSubstances.selectedElements[i])
+            foreach (var c in DatabaseSubstances.instance.selectedElements[i])
             {
                 if (c.GetComponent<ElementControl>().indexInContainer > indexInContainer && c.GetComponent<ElementControl>().status==Mode.MoveSelect)
                 {
@@ -214,10 +214,10 @@ public class ElementControl : MonoBehaviour, IPointerClickHandler
     private void OffsetLeftELements()
     {
         DeleteElemSelect();
-        for (int i = 1; i <= DatabaseSubstances.numberChoice; i++)
+        for (int i = 1; i <= DatabaseSubstances.instance.numberChoice; i++)
         {
             GameObject prevEl = null;
-            foreach (var c in DatabaseSubstances.selectedElements[i])
+            foreach (var c in DatabaseSubstances.instance.selectedElements[i])
             {
                 if (c.GetComponent<ElementControl>().indexInContainer > indexInContainer && c.GetComponent<ElementControl>().status != Mode.MoveSelect)
                 {
@@ -232,7 +232,7 @@ public class ElementControl : MonoBehaviour, IPointerClickHandler
     // корутины перемещения
     private IEnumerator MoveToContainer(Vector2 pos1, Vector2 pos2, Vector2 pos3, Vector2 pos4, float time1, float time2, float time3,float time4)
     {
-        if(DatabaseSubstances.selectedElements[DatabaseSubstances.numberChoice].Count==1)
+        if(DatabaseSubstances.instance.selectedElements[DatabaseSubstances.instance.numberChoice].Count==1)
         RemoveRotation();
         yield return StartCoroutine(MoveElement(pos1, time1+indexInContainer));
         yield return StartCoroutine(MoveElement(pos2, time2));
@@ -242,10 +242,10 @@ public class ElementControl : MonoBehaviour, IPointerClickHandler
         yield return StartCoroutine(MoveElement(pos4 + new Vector2(indexInContainer, 0f), time4));
         yield return status = Mode.StaticFluctuations;
         yield return AcceptButton.isButtonAccept = false;
-        for (int i = 1; i <= DatabaseSubstances.numberChoice; i++)
+        for (int i = 1; i <= DatabaseSubstances.instance.numberChoice; i++)
         {
             GameObject prevEl=null;
-            foreach (var c in DatabaseSubstances.selectedElements[i])
+            foreach (var c in DatabaseSubstances.instance.selectedElements[i])
             {
                 if (indexInContainer - c.GetComponent<ElementControl>().indexInContainer == 1 && numberChoiceLink==c.GetComponent<ElementControl>().numberChoiceLink)
                 {

@@ -21,7 +21,7 @@ public class SpawnSubstances : MonoBehaviour
             Instantiate(substanceText,contentList.transform);
             for (int i = 0; i < c.elements.Length; i++)
             {
-                DatabaseSubstances.elementsPrefab.Add(Instantiate(c.elements[i].Prefab,elements.transform));
+               Instantiate(c.elements[i].Prefab,elements.transform);
             }
             
         }

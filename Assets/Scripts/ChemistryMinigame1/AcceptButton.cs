@@ -9,13 +9,13 @@ public class AcceptButton : MonoBehaviour
     {
         //if (isButtonAccept == false)
         //{
-            foreach (var c in DatabaseSubstances.selectedElements[DatabaseSubstances.numberChoice])
+            foreach (var c in DatabaseSubstances.instance.selectedElements[DatabaseSubstances.instance.numberChoice])
             {             
                 c.GetComponent<ElementControl>().status = ElementControl.Mode.MoveInContainer;
                 c.GetComponent<ElementControl>().PerformStatus(ElementControl.Mode.MoveInContainer);
             }
-            DatabaseSubstances.numberChoice++;
-            DatabaseSubstances.selectedElements.Add(DatabaseSubstances.numberChoice, new List<GameObject>());
+            DatabaseSubstances.instance.numberChoice++;
+            DatabaseSubstances.instance.selectedElements.Add(DatabaseSubstances.instance.numberChoice, new List<GameObject>());
             isButtonAccept = true;
         //}
     }

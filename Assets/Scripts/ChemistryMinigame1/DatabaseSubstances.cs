@@ -10,11 +10,12 @@ public class DatabaseSubstances : MonoBehaviour
     [SerializeField]
     private Substance[] SubstancesSerializable;
     public static Substance[] Substances;
-
-    static public List<GameObject> elementsPrefab = new List<GameObject>();
-    static public Dictionary<int, List<GameObject>> selectedElements = new Dictionary<int, List<GameObject>>();
-    static public int numberChoice = 1;
-    static public int numbersInContainer = -1;
+    public static DatabaseSubstances instance=null;
+    public Dictionary<int, List<GameObject>> selectedElements = new Dictionary<int, List<GameObject>>();
+    public int numberChoice = 1;
+    public int numbersInContainer = -1;
+    public int number—orrectAnswers=0;
+    static public int resultForTransfer;
 
     [Serializable]
     public class Substance
@@ -26,6 +27,8 @@ public class DatabaseSubstances : MonoBehaviour
 
     private void Awake()
     {
+        if(instance==null)
+            instance = this;
         Substances = SubstancesSerializable;
         selectedElements.Add(numberChoice, new List<GameObject>());
     }
