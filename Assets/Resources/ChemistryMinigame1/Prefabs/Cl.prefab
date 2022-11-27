@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 5970680137252928328}
-  elecEffect: {fileID: 6146136595678982961, guid: 677b1075847f1aa4b9db70180e709cb5, type: 3}
+  elecEffect: {fileID: 8048666535188234160, guid: c57cb33b4e984de4ea75f17373192287, type: 3}
   elecEffectSphere: {fileID: 7773450177387971655, guid: c402fdeab8b24b746b0a96dcc194afa6, type: 3}
   elecEffectR: {fileID: 8048666535188234160, guid: c57cb33b4e984de4ea75f17373192287, type: 3}
   rb: {fileID: 5970680137252928335}

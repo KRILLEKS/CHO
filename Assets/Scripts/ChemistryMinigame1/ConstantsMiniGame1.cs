@@ -55,4 +55,7 @@ public class ConstantsMiniGame1 :MonoBehaviour
     static public Vector3 posCloseAlertButton = new Vector3(11.12f, -3.52f, 0f);
     static public Vector3 posOpenAlertButton = new Vector3(7.12f, -3.52f, 0f);
     static public float durationAlertWindow = 2f;
+    //limit
+    public const float limitX = 11f;
+    public const float limitY = 8f;
 }

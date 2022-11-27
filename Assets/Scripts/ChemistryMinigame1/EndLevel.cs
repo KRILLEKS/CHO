@@ -24,7 +24,6 @@ public class EndLevel : MonoBehaviour
                     {
                         if (c.formula.Contains(s.GetComponent<ElementControl>().nameElements) == true)
                         {
-                            Debug.Log(numberMatches);
                             numberMatches++;
                         }
                         else continue;
@@ -32,7 +31,6 @@ public class EndLevel : MonoBehaviour
                     if (numberMatches == c.elements.Length)
                         DatabaseSubstances.instance.number—orrectAnswers++;
                 }
-                Debug.Log(DatabaseSubstances.instance.number—orrectAnswers);
             }
             await Task.Yield();
         }
